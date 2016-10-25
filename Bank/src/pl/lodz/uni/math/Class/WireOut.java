@@ -3,10 +3,7 @@ package pl.lodz.uni.math.Class;
 
 import java.util.Date;
 
-/**
- *
- * @author Artur
- */
+
 public class WireOut {
     private String description;
     private double amount;
@@ -15,6 +12,14 @@ public class WireOut {
     private double toAccount;
     private String country;
     private Integer swift;
+    private static WireOut wireOut=null;
+    
+    public static WireOut getInstance(){
+        if(wireOut==null){
+            wireOut = new WireOut();
+        }
+        return wireOut;
+    }
 
     public String getDescription() {
         return description;
@@ -85,6 +90,9 @@ public class WireOut {
     @Override
     public String toString() {
         return "WireOut{" + "description=" + description + ", amount=" + amount + ", nummberPerClient=" + nummberPerClient + ", date=" + date + ", toAccount=" + toAccount + ", country=" + country + ", swift=" + swift + '}';
+    }
+
+    private WireOut() {
     }
     
     

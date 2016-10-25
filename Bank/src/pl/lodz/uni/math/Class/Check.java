@@ -11,7 +11,14 @@ public class Check  {
     private Integer nummberPerAccount;
     private Date date;
     private double toAccount;
+    private static Check check=null;
     
+    public static Check getInstance(){
+        if(check==null){
+            check = new Check();
+        }
+        return check;
+    }
 
     public String getDescription() {
         return description;
@@ -55,6 +62,9 @@ public class Check  {
     }
     //private static final Logger LOG = Logger.getLogger(Check.class.getName());
 
+    private Check() {
+    }
+
     public Check(String description, double amount, Integer nummberPerAccount, Date date, double toAccount) {
         this.description = description;
         this.amount = amount;
@@ -67,7 +77,10 @@ public class Check  {
     public String toString() {
         return "Check{" + "description=" + description + ", amount=" + amount + ", nummberPerAccount=" + nummberPerAccount + ", date=" + date + ", toAccount=" + toAccount + '}';
     }
-       
+      
+//    public Check getCheckByID(int id){
+//        return new Check("NUMER PRZELEWU",100);
+//    }
     
     
 }

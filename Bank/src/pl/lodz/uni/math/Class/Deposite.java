@@ -13,6 +13,15 @@ public class Deposite {
     private Integer nummberPerAccount;
     private Date date;
     private double fromAccount;
+    private static Deposite deposite=null;
+
+    
+    public static Deposite getInstance(){
+        if(deposite==null){
+            deposite=new Deposite();
+        }
+        return deposite;
+    }
 
     public String getDescription() {
         return description;
@@ -33,6 +42,10 @@ public class Deposite {
     public Integer getNummberPerAccount() {
         return nummberPerAccount;
     }
+
+    private Deposite() {
+    }
+    
 
     public void setNummberPerAccount(Integer nummberPerAccount) {
         this.nummberPerAccount = nummberPerAccount;
@@ -60,6 +73,11 @@ public class Deposite {
         this.nummberPerAccount = nummberPerAccount;
         this.date = date;
         this.fromAccount = fromAccount;
+    }
+
+    @Override
+    public String toString() {
+        return "Deposite{" + "description=" + description + ", amount=" + amount + ", nummberPerAccount=" + nummberPerAccount + ", date=" + date + ", fromAccount=" + fromAccount + '}';
     }
     
     

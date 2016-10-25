@@ -3,8 +3,10 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/C:/Users/Artur/Desktop/CWICZENIA%20W%20DOMU/JAVA/Podstawy%20JAVA/Bank/src/pl/lodz/uni/math/bank/Main.java</file>
-            <file>file:/C:/Users/Artur/Desktop/CWICZENIA%20W%20DOMU/JAVA/Podstawy%20JAVA/Bank/src/pl/lodz/uni/math/transaction/ITransactionCheck.java</file>
+            <file>file:/C:/MyProject/Bank/src/pl/lodz/uni/math/Class/WireOut.java</file>
+            <file>file:/C:/MyProject/Bank/src/pl/lodz/uni/math/bank/Main.java</file>
+            <file>file:/C:/MyProject/Bank/src/pl/lodz/uni/math/Class/Check.java</file>
+            <file>file:/C:/MyProject/Bank/src/pl/lodz/uni/math/Class/Deposite.java</file>
         </group>
     </open-files>
 </project-private>
