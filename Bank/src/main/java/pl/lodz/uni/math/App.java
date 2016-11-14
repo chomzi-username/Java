@@ -9,6 +9,7 @@ import pl.lodz.uni.math.bank.service.*;
 import pl.lodz.uni.math.bank.service.impl.*;
 import org.apache.log4j.Logger;
 import org.apache.log4j.BasicConfigurator;
+import org.apache.log4j.Level;
 import org.apache.log4j.LogManager;
 
 public class App 
@@ -17,6 +18,8 @@ public class App
 	
     public static void main( String[] args )
     {
+    	BasicConfigurator.configure();
+    	logger.setLevel(Level.INFO);
     	ClientService clientService = ClientServiceImpl.getInstance();
         Client clientArtur = clientService.create(new Client("Artur", "Goralczyk"));
         logger.info(clientService.read(1));
@@ -47,6 +50,6 @@ public class App
         List<Transaction> arturHistory = transactionService.findAccountHistory(arturAccount1);
         logger.info(arturHistory);
         
-        //BasicConfigurator.configure();
+        
     }
 }
