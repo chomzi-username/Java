@@ -6,5 +6,5 @@ public interface ClientDao {
 	Client create(Client client);
 	Client read(Integer id);
 	Client update(Client client);
-	void delete(Client client);
+	Client delete(Client client);
 }

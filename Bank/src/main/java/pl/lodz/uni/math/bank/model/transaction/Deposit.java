@@ -1,7 +1,8 @@
 package pl.lodz.uni.math.bank.model.transaction;
 
-import pl.lodz.uni.math.bank.constant.TransactionType;
 import java.util.Date;
+
+import pl.lodz.uni.math.bank.enumType.TransactionType;
 
 public class Deposit implements Transaction{
 	private String id;
@@ -77,7 +78,7 @@ public class Deposit implements Transaction{
 	@Override
 	public String toString() {
 		return "Deposit [id=" + id + ", fromAccount=" + fromAccount + ", toAccount=" + toAccount + ", amount=" + amount
-				+ ", date=" + date + ", description=" + description + ", type=" + type + "]";
+				+ ", date=" + date + ", description=" + description + ", type=" + type + "]"+"\n\n";
 	}
     
     

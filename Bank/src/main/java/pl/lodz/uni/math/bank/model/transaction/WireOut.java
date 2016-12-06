@@ -1,7 +1,8 @@
 package pl.lodz.uni.math.bank.model.transaction;
 
-import pl.lodz.uni.math.bank.constant.TransactionType;
 import java.util.Date;
+
+import pl.lodz.uni.math.bank.enumType.TransactionType;
 
 public class WireOut implements Transaction{
 	private String id;
@@ -98,7 +99,7 @@ public class WireOut implements Transaction{
 	public String toString() {
 		return "WireOut [id=" + id + ", country=" + country + ", swift=" + swift + ", fromAccount=" + fromAccount
 				+ ", toAccount=" + toAccount + ", amount=" + amount + ", date=" + date + ", description=" + description
-				+ ", type=" + type + "]";
+				+ ", type=" + type + "]"+"\n\n";
 	}
     
     

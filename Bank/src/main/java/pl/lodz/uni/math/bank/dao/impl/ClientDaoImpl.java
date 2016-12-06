@@ -25,9 +25,15 @@ public class ClientDaoImpl implements ClientDao {
 	}
 	
 	public Client create(Client client){
-		Integer id = clients.size()+1;
-		client.setId(id);
-		clients.add(client);
+		try{
+			clients.add(client);
+			Integer id = clients.size()+1;
+			client.setId(id);
+			
+		}catch(NullPointerException e){
+			logger.error("Problem with creating a client");
+		}
+		
 		return client;
 	}
 	
@@ -40,7 +46,16 @@ public class ClientDaoImpl implements ClientDao {
 		return null;
 	}
 	
-	public void delete(Client client){
+	public Client delete(Client client){
+		try{
+			Integer id = clients.size()-1;
+			client.setId(id);
+			clients.add(client);
+		}catch(NullPointerException e){
+			logger.error("Problem with removal client" );
+		}
+		
+		return client;
 		
 	}
 	

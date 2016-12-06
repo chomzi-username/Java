@@ -34,25 +34,27 @@
 			<artifactId>log4j-api</artifactId>
 			<version>2.7</version>
 		</dependency>
+		
 		<dependency>
 			<groupId>org.apache.logging.log4j</groupId>
 			<artifactId>log4j-core</artifactId>
 			<version>2.7</version>
 		</dependency>
+		
+		<dependency>
+		  <groupId>org.easymock</groupId>
+		  <artifactId>easymock</artifactId>
+		  <version>3.4</version>
+		  <scope>test</scope>
+		</dependency>
+		
+		<!-- https://mvnrepository.com/artifact/junit/junit -->
+		<dependency>
+		    <groupId>junit</groupId>
+		    <artifactId>junit</artifactId>
+		    <version>4.12</version>
+		</dependency>
+		
 	</dependencies>
-	<!--  
-	<build>
-        <plugins>
-            <plugin>
-                <groupId>org.codehaus.mojo</groupId>
-                <artifactId>exec-maven-plugin</artifactId>
-                <version>1.2.1</version>
-                <configuration>
-                    <mainClass>pl.lodz.uni.math.App</mainClass>
-                </configuration>
-            </plugin>
-        </plugins>
-    </build>-->
-	
-	
+		
 </project>

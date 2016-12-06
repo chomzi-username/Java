@@ -28,8 +28,14 @@ public class TransactionDaoImpl implements TransactionDao {
     }
 
     public Transaction create(Transaction transaction) {
-        transactions.add(transaction);
-        return transaction;
+    	try{
+    		transactions.add(transaction);
+    		
+    	}catch(NullPointerException e){
+    		logger.error("Problem with creating transaction");
+    	}
+        
+    	return transaction;
     }
     
     public List<Transaction> findAccountHistory(Account account){

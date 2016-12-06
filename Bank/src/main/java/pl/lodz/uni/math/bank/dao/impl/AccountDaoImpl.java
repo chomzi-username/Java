@@ -25,8 +25,13 @@ public class AccountDaoImpl implements AccountDao {
 	}
 	
 	public Account create(Account account){
-		accounts.add(account);
-		logger.info(accounts);
+		try{
+			accounts.add(account);//mockowac accounts, sprawdzic czy add dodaje konto, sprawdzic proces dodawania | if sprawdzic true albo false
+			logger.info(accounts);
+		}catch(NullPointerException e){
+			logger.error("Problem with creating account");
+		}
+		
 		return account;
 	}
 	
