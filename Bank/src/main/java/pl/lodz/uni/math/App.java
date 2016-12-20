@@ -65,7 +65,7 @@ public class App {
 		Deposit deposit = new Deposit();
 		deposit.setFromAccount(arturAccount1.getNumber());
 		try {
-			//deposit.getFromAccount();
+
 			deposit.setToAccount("111");
 			deposit.setAmount(1000.00);
 			deposit.setDate(new Date(System.currentTimeMillis()));
@@ -76,36 +76,9 @@ public class App {
 		}
 
 		transactionService.create(deposit);
-		
+
 		List<Transaction> arturHistory = transactionService.findAccountHistory(arturAccount1);
 		logger.info(arturHistory);
 
-		/*
-		 * // Second client Client clientMichal = clientService.create(new
-		 * Client("Michał", "Nowak")); logger.info(clientService.read(2));
-		 * 
-		 * Account michalAccount1 = accountService.create(new
-		 * Account(clientMichal.getId(), "Konto2"));
-		 * logger.info(michalAccount1);
-		 * 
-		 * // Make check check.setFromAccount(michalAccount1.getNumber());
-		 * 
-		 * check.setToAccount("823"); check.setAmount(60.00); check.setDate(new
-		 * Date(System.currentTimeMillis())); check.setDescription(
-		 * "przelew krajowy");
-		 * 
-		 * transactionService.create(check);
-		 * 
-		 * // Make wireout wireOut.setFromAccount(michalAccount1.getNumber());
-		 * 
-		 * wireOut.setToAccount("8233"); wireOut.setAmount(19.99);
-		 * wireOut.setSwift("DE193212"); wireOut.setCountry("DE");
-		 * 
-		 * transactionService.create(wireOut);
-		 * 
-		 * List<Transaction> michalHistory =
-		 * transactionService.findAccountHistory(michalAccount1);
-		 * logger.info(michalHistory);
-		 */
 	}
 }

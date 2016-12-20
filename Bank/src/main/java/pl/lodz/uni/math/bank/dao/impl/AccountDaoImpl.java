@@ -2,6 +2,8 @@ package pl.lodz.uni.math.bank.dao.impl;
 
 import pl.lodz.uni.math.bank.dao.AccountDao;
 import pl.lodz.uni.math.bank.model.Account;
+import pl.lodz.uni.math.bank.model.Client;
+
 import org.apache.log4j.*;
 import java.util.*;
 
@@ -26,13 +28,27 @@ public class AccountDaoImpl implements AccountDao {
 	
 	public Account create(Account account){
 		try{
-			accounts.add(account);//mockowac accounts, sprawdzic czy add dodaje konto, sprawdzic proces dodawania | if sprawdzic true albo false
-			logger.info(accounts);
-		}catch(NullPointerException e){
+			accounts.add(account);
+			Integer id = accounts.size()+1;
+			account.setClientId(id);
+		}catch(IllegalArgumentException e){
 			logger.error("Problem with creating account");
 		}
 		
 		return account;
+	}
+	
+	public Account delete(Account account){
+		try{
+			Integer id = accounts.size()-1;
+			account.setClientId(id);
+			accounts.remove(account);
+		}catch(IllegalArgumentException e){
+			logger.error("Problem with removal client" );
+		}
+		
+		return account;
+		
 	}
 	
 }

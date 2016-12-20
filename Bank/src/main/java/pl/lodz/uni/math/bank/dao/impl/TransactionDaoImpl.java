@@ -30,8 +30,7 @@ public class TransactionDaoImpl implements TransactionDao {
     public Transaction create(Transaction transaction) {
     	try{
     		transactions.add(transaction);
-    		
-    	}catch(NullPointerException e){
+    	}catch(IllegalArgumentException e){
     		logger.error("Problem with creating transaction");
     	}
         

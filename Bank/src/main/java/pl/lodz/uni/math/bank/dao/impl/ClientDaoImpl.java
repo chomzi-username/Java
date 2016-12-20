@@ -30,7 +30,7 @@ public class ClientDaoImpl implements ClientDao {
 			Integer id = clients.size()+1;
 			client.setId(id);
 			
-		}catch(NullPointerException e){
+		}catch(IllegalArgumentException e){
 			logger.error("Problem with creating a client");
 		}
 		
@@ -50,8 +50,8 @@ public class ClientDaoImpl implements ClientDao {
 		try{
 			Integer id = clients.size()-1;
 			client.setId(id);
-			clients.add(client);
-		}catch(NullPointerException e){
+			clients.remove(client);
+		}catch(IllegalArgumentException e){
 			logger.error("Problem with removal client" );
 		}
 		

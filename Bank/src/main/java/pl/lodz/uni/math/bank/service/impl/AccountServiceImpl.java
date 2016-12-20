@@ -39,5 +39,16 @@ public class AccountServiceImpl implements AccountService {
 		
 		return accountDao.create(account);
 	}
+	
+	public Account delete(Account account){
+		try{
+			lastInsertedNumber--;
+			account.setNumber(lastInsertedNumber.toString());
+		}catch(IllegalArgumentException e){
+			logger.error("wrong format for delete account");
+		}
+		
+		return accountDao.delete(account);
+	}
 
 }

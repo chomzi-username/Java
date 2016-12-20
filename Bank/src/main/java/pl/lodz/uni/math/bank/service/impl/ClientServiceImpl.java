@@ -32,8 +32,8 @@ public class ClientServiceImpl implements ClientService {
         return clientDao.update(client);
     }
 
-    public void delete(Client client) {
-        clientDao.delete(client);
+    public Client delete(Client client) {
+        return clientDao.delete(client);
     }
 	
 }
