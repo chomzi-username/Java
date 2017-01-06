@@ -19,7 +19,7 @@ public class App {
 
 	public static void main(String[] args) {
 		BasicConfigurator.configure();
-		logger.setLevel(Level.INFO);
+		logger.setLevel(Level.ALL);
 
 		ClientService clientService = ClientServiceImpl.getInstance();
 		// First client

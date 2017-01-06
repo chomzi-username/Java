@@ -31,7 +31,6 @@ import static org.easymock.EasyMock.*;
 
 public class AppTest extends EasyMockSupport {
 
-	// MOCK TESTING
 	@TestSubject
 	private IMocksControl ctrl;
 	private Account newAccount = new Account(1,"asdasd");
@@ -39,31 +38,14 @@ public class AppTest extends EasyMockSupport {
 	@Mock
 	AccountDaoImpl accountDaoImpl;
 	
-	/*
-	@Before
-	public void setUp() {
-		ctrl = EasyMock.createControl();
-		accountDaoImpl.create(newAccount);
-	}
-
-	@Test 
-	public void addAccountTestMock() throws Exception {
-		List<Account> accounts = new ArrayList<Account>();
-		setUp(); 
-		ctrl.reset(); 
-		assertEquals(1, accounts.add(newAccount));
-		ctrl.verify(); 
-	  }
-	  */
 	@Rule
     public ExpectedException thrown = ExpectedException.none();
-	// JUNIT TESTING
-	// Client
+
 	@Test
 	public void createAccountTest() {
 		Account account = new Account(1, "asdas");
 		AccountDaoImpl accountImpl = new AccountDaoImpl();
-		accountImpl.create(account);
+		assertEquals(account, accountImpl.create(account));
 	}
 	
 	@Test(expected=IllegalArgumentException.class)
@@ -71,14 +53,13 @@ public class AppTest extends EasyMockSupport {
 		Account account = new Account();
 		AccountDaoImpl accountImpl = new AccountDaoImpl();
 		accountImpl.create(account);
-		thrown.expectMessage("Problem with creating account");
 	}
 
 	@Test
 	public void deleteAccountTest() {
 		Account account = new Account(1, "asdas");
 		AccountDaoImpl accountImpl = new AccountDaoImpl();
-		accountImpl.delete(account);
+		assertEquals(account, accountImpl.delete(account));
 	}
 	
 	@Test(expected=IllegalArgumentException.class)
@@ -93,7 +74,7 @@ public class AppTest extends EasyMockSupport {
 	public void createClientTest() {
 		Client client = new Client("Marek", "Nowak");
 		ClientDaoImpl clientImpl = new ClientDaoImpl();
-		clientImpl.create(client);
+		assertEquals(client, clientImpl.create(client));
 	}
 	
 	@Test(expected=IllegalArgumentException.class)
@@ -108,7 +89,7 @@ public class AppTest extends EasyMockSupport {
 	public void deteleClientTest() {
 		Client client = new Client("Marek", "Nowak");
 		ClientDaoImpl clientImpl = new ClientDaoImpl();
-		clientImpl.delete(client);
+		assertEquals(client, clientImpl.delete(client));
 	}
 	
 	@Test(expected=IllegalArgumentException.class)
@@ -130,14 +111,15 @@ public class AppTest extends EasyMockSupport {
 	public void updateClientTest(){
 		ClientDaoImpl clientDao = new ClientDaoImpl();
 		Client client = null;
-		clientDao.update(client);
+		assertEquals(client, clientDao.update(client));
 	}
 
 	@Test
 	public void createTransactionTest() {
 		TransactionDaoImpl tran = new TransactionDaoImpl();
 		Transaction transaction = null;
-		tran.create(transaction);
+		assertEquals(transaction, tran.create(transaction));
+		
 	}
 	
 	@Test(expected=IllegalArgumentException.class)
@@ -194,28 +176,28 @@ public class AppTest extends EasyMockSupport {
 	public void createClientServiceTest(){
 		ClientServiceImpl clientService = new ClientServiceImpl();
 		Client client = new Client();
-		clientService.create(client);
+		assertEquals(client, clientService.create(client));
 	}
 	
 	@Test
 	public void deleteClientServiceTest(){
 		ClientServiceImpl clientService = new ClientServiceImpl();
 		Client client = new Client();
-		clientService.delete(client);
+		assertEquals(client, clientService.delete(client));
 	}
 	
 	@Test
 	public void updateClientServiceTest(){
 		ClientServiceImpl clientService = new ClientServiceImpl();
 		Client client = new Client();
-		clientService.update(client);
+		assertEquals(client, clientService.update(client));
 	}
 	
 	@Test
 	public void createTransactionServiceTest(){
 		TransactionServiceImpl transactionService = new TransactionServiceImpl();
 		Transaction transaction = null ;
-		transactionService.create(transaction);
+		assertEquals(transaction, transactionService.create(transaction));
 	}
 	
 

@@ -4,7 +4,7 @@ import java.util.Date;
 
 import pl.lodz.uni.math.bank.enumType.TransactionType;
 
-public class Check implements Transaction{
+public class Check implements Transaction {
 	private String id;
 	private String fromAccount;
 	private String toAccount;
@@ -12,8 +12,8 @@ public class Check implements Transaction{
 	private Date date;
 	private String description;
 	private TransactionType type = TransactionType.CHECK;
-	
-	public String getId(){
+
+	public String getId() {
 		return id;
 	}
 
@@ -68,16 +68,15 @@ public class Check implements Transaction{
 	public void setId(String id) {
 		this.id = id;
 	}
-	
-	public String getInfo(){
+
+	public String getInfo() {
 		return toString();
 	}
 
 	@Override
 	public String toString() {
-		return "\n\n"+"Check [id=" + id + ", fromAccount=" + fromAccount + ", toAccount=" + toAccount + ", amount=" + amount
-				+ ", date=" + date + ", description=" + description + ", type=" + type + "]"+"\n\n";
+		return "\n\n" + "Check [id=" + id + ", fromAccount=" + fromAccount + ", toAccount=" + toAccount + ", amount="
+				+ amount + ", date=" + date + ", description=" + description + ", type=" + type + "]" + "\n\n";
 	}
-	
-	
+
 }

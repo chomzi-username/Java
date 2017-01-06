@@ -9,46 +9,42 @@ import java.util.*;
 
 public class AccountDaoImpl implements AccountDao {
 	private static Logger logger = LogManager.getLogger(AccountDaoImpl.class);
-	
+
 	private static AccountDao instance;
-	
+
 	private List<Account> accounts;
-	
-	public AccountDaoImpl(){
+
+	public AccountDaoImpl() {
 		accounts = new ArrayList<Account>();
 	}
-	
-	public static AccountDao getInstance(){
-		if(instance==null){
+
+	public static AccountDao getInstance() {
+		if (instance == null) {
 			instance = new AccountDaoImpl();
 		}
-		
+
 		return instance;
 	}
-	
-	public Account create(Account account){
-		try{
+
+	public Account create(Account account) {
+		try {
 			accounts.add(account);
-			Integer id = accounts.size()+1;
-			account.setClientId(id);
-		}catch(IllegalArgumentException e){
+		} catch (IllegalArgumentException e) {
 			logger.error("Problem with creating account");
 		}
-		
+
 		return account;
 	}
-	
-	public Account delete(Account account){
-		try{
-			Integer id = accounts.size()-1;
-			account.setClientId(id);
+
+	public Account delete(Account account) {
+		try {
 			accounts.remove(account);
-		}catch(IllegalArgumentException e){
-			logger.error("Problem with removal client" );
+		} catch (IllegalArgumentException e) {
+			logger.error("Problem with removal client");
 		}
-		
+
 		return account;
-		
+
 	}
-	
+
 }

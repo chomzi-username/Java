@@ -12,57 +12,59 @@ import pl.lodz.uni.math.bank.model.transaction.WireOut;
 public class TransactionDaoImpl implements TransactionDao {
 	private static Logger logger = LogManager.getLogger(TransactionDaoImpl.class);
 
-    private static TransactionDao instance = null;
+	private static TransactionDao instance = null;
 
-    private List<Transaction> transactions;
+	private List<Transaction> transactions;
 
-    public TransactionDaoImpl() {
-        transactions = new ArrayList<Transaction>();
-    }
+	public TransactionDaoImpl() {
+		transactions = new ArrayList<Transaction>();
+	}
 
-    public static TransactionDao getInstance() {
-        if (instance == null) {
-            instance = new TransactionDaoImpl();
-        }
-        return instance;
-    }
+	public static TransactionDao getInstance() {
+		if (instance == null) {
+			instance = new TransactionDaoImpl();
+		}
+		return instance;
+	}
 
-    public Transaction create(Transaction transaction) {
-    	try{
-    		transactions.add(transaction);
-    	}catch(IllegalArgumentException e){
-    		logger.error("Problem with creating transaction");
-    	}
-        
-    	return transaction;
-    }
-    
-    public List<Transaction> findAccountHistory(Account account){
-    	List<Transaction> history = new ArrayList<Transaction>();
-    	for(Transaction transaction : transactions){
-    		switch(transaction.getType()){
-    		case CHECK:
-    			Check check = (Check) transaction;
-    			if(check.getFromAccount().equals(account.getNumber())){
-    				history.add(transaction);
-    			}
-    			break;
-    		case DEPOSIT:
-    			Deposit deposit = (Deposit) transaction;
-    			if (deposit.getToAccount().equals(account.getNumber())) {
-                    history.add(deposit);
-                }
-                break;
-             case WIREOUT:
-                WireOut wireOut = (WireOut) transaction;
-                if (wireOut.getFromAccount().equals(account.getNumber())) {
-                    history.add(wireOut);
-                }
-                break;
-    		}
-    	}
-    	return history;
-    }
+	public Transaction create(Transaction transaction) {
+		try {
+			transactions.add(transaction);
+		} catch (IllegalArgumentException e) {
+			logger.error("Problem with creating transaction");
+		}
 
+		return transaction;
+	}
+
+	public List<Transaction> findAccountHistory(Account account) {
+		List<Transaction> history = new ArrayList<Transaction>();
+		for (Transaction transaction : transactions) {
+			switch (transaction.getType()) {
+			case CHECK:
+				Check check = (Check) transaction;
+				if (check.getFromAccount().equals(account.getNumber())) {
+					history.add(check);
+				}
+				break;
+			case DEPOSIT:
+				Deposit deposit = (Deposit) transaction;
+				if (deposit.getToAccount().equals(account.getNumber())) {
+					history.add(deposit);
+				}
+				break;
+			case WIREOUT:
+				WireOut wireOut = (WireOut) transaction;
+				if (wireOut.getFromAccount().equals(account.getNumber())) {
+					history.add(wireOut);
+				}
+				break;
+			default:
+				logger.info("Problem with transaction");
+			
+			}
+		}
+		return history;
+	}
 
 }
