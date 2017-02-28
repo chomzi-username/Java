@@ -12,7 +12,8 @@ import pl.goralczyk.entity.Pacjent;
 
 public class PacjentBean {
     private Pacjent pacjent = new Pacjent();
-    private String login;
+    private String username;
+    private String haslo;
 
     public Pacjent getPacjent() {
         return pacjent;
@@ -81,11 +82,21 @@ public class PacjentBean {
         return "/pokazpacjenta.xhtml";
     }
     
-    public String getLogin(){
-        return login;
+    public String getUsername(){
+        return username;
     }
 
-    public void setLogin(String login) {
-        this.login = login;
+    public void setUsername(String username) {
+        this.username = username;
     }
+
+    public String getHaslo() {
+        return haslo;
+    }
+
+    public void setHaslo(String haslo) {
+        this.haslo = haslo;
+    }
+    
+    
 }

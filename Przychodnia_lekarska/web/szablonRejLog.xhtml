@@ -15,15 +15,9 @@
     </h:head>
 
     <h:body>
-        <div id="left">
-            <li><h:outputLink value="pokazlekarzy.xhtml">Pokaż lekarzy</h:outputLink></li>
-            <li><h:outputLink value="pokazprzychodnie.xhtml">Pokaż przychodnie</h:outputLink></li>
-        </div>
         <div>
-            
-            <div id="content" class="right_content">
-                <ui:insert name="content">Content</ui:insert>
-            </div>
+            <ui:insert name="content"></ui:insert>
+            <h:messages infoStyle="color:green" layout="table" />
         </div>
     </h:body>
 </html>

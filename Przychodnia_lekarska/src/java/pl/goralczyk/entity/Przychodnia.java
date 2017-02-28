@@ -8,7 +8,6 @@ package pl.goralczyk.entity;
 import java.io.Serializable;
 import java.util.Set;
 import javax.persistence.Basic;
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -52,9 +51,9 @@ public class Przychodnia implements Serializable {
     private String adres;
     @Column(name = "kontakt", length = 30)
     private String kontakt;
-    @OneToMany(mappedBy = "przychodnia", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "przychodnia", fetch = FetchType.EAGER)
     private Set<Pacjent> pacjentSet;
-    @OneToMany(mappedBy = "przychodnia", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "przychodnia", fetch = FetchType.EAGER)
     private Set<Lekarz> lekarzSet;
 
     public Przychodnia() {

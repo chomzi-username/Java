@@ -135,4 +135,5 @@ public class Wizyta implements Serializable {
         WizytaPK klucz = new WizytaPK(lekarzID, pacjentID, data);
         return klucz;
     }
+    
 }

@@ -35,7 +35,9 @@ import javax.persistence.UniqueConstraint;
     , @NamedQuery(name = "Pacjent.findById", query = "SELECT p FROM Pacjent p WHERE p.id = :id")
     , @NamedQuery(name = "Pacjent.findByImie", query = "SELECT p FROM Pacjent p WHERE p.imie = :imie")
     , @NamedQuery(name = "Pacjent.findByNazwisko", query = "SELECT p FROM Pacjent p WHERE p.nazwisko = :nazwisko")
-    , @NamedQuery(name = "Pacjent.findByPesel", query = "SELECT p FROM Pacjent p WHERE p.pesel = :pesel")})
+    , @NamedQuery(name = "Pacjent.findByPesel", query = "SELECT p FROM Pacjent p WHERE p.pesel = :pesel")
+    , @NamedQuery(name = "Pacjent.findByUsername", query = "SELECT p FROM Pacjent p WHERE p.username = :username")
+    , @NamedQuery(name = "Pacjent.findByHaslo", query = "SELECT p FROM Pacjent p WHERE p.haslo = :haslo")})
 public class Pacjent implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -53,6 +55,12 @@ public class Pacjent implements Serializable {
     @Basic(optional = false)
     @Column(name = "pesel", nullable = false, length = 11)
     private String pesel;
+    @Basic(optional = false)
+    @Column(name = "username", nullable = false, length = 30)
+    private String username;
+    @Basic(optional = false)
+    @Column(name = "haslo", nullable = false, length = 30)
+    private String haslo;
     @JoinColumn(name = "przychodnia", referencedColumnName = "id")
     @ManyToOne(fetch = FetchType.EAGER)
     private Przychodnia przychodnia;
@@ -66,11 +74,13 @@ public class Pacjent implements Serializable {
         this.id = id;
     }
 
-    public Pacjent(Integer id, String imie, String nazwisko, String pesel) {
+    public Pacjent(Integer id, String imie, String nazwisko, String pesel, String username, String haslo) {
         this.id = id;
         this.imie = imie;
         this.nazwisko = nazwisko;
         this.pesel = pesel;
+        this.username = username;
+        this.haslo = haslo;
     }
 
     public Integer getId() {
@@ -103,6 +113,22 @@ public class Pacjent implements Serializable {
 
     public void setPesel(String pesel) {
         this.pesel = pesel;
+    }
+
+    public String getUsername() {
+        return username;
+    }
+
+    public void setUsername(String username) {
+        this.username = username;
+    }
+
+    public String getHaslo() {
+        return haslo;
+    }
+
+    public void setHaslo(String haslo) {
+        this.haslo = haslo;
     }
 
     public Przychodnia getPrzychodnia() {
