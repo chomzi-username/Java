@@ -29,7 +29,7 @@ public class LogowanieBean extends HttpServlet {
             //FacesContext.getCurrentInstance().getExternalContext().getSessionMap().put("username", user);
             HttpSession session = SessionUtils.getSession();
             session.setAttribute("username", user);
-            return "/indexPowitalny.xhtml";
+            return "/patientPage.xhtml";
         } else {
             FacesContext.getCurrentInstance().addMessage(
                     null,
