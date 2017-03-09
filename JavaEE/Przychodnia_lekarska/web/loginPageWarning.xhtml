@@ -1,6 +1,7 @@
 <?xml version='1.0' encoding='UTF-8' ?>
 <!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+                template="./szablonRejLog.xhtml"
                 xmlns:h="http://xmlns.jcp.org/jsf/html"
                 xmlns:p="http://xmlns.jcp.org/jsf/passthrough"
                 xmlns="http://www.w3.org/1999/xhtml">
@@ -17,6 +18,9 @@
     <h:body class="container">
         <h:form id="formularzLogowania" class="col-md-6 center-block" style="margin-top: 100px;margin-left: 300px ;margin-right: 100px; align-content: center" >
             <h1>Logowanie pacjenta</h1>
+            <div class="alert alert-warning">
+                <strong>Uuups!</strong> Użyte dane do logowania są nieprawidłowe. Proszę spróbować jeszcze raz.
+            </div>
             <div class="form-group">
                 <h:outputText value="Wprowadź nazwę użytkownika: " style="font-weight: bold"/>
                 <h:inputText id="inputName" value="#{logowanieBean.user}" class="form-control" />
@@ -24,14 +28,11 @@
             <div class="form-group">
                 <h:outputText value="Wprowadź hasło:" style="font-weight: bold"/>
                 <h:inputSecret id="inputPassword" value="#{logowanieBean.pass}" class="form-control"/>
-            </div>
+            </div><!--required="true"-->
             <h:commandButton value="Zaloguj się" action="#{logowanieBean.validateUsernamePassword}" 
                              class="btn btn-success" />
             <div style="text-align: right;">
-                <h:outputLink value="registerPage.xhtml" class="btn-lg btn-block">Rejestracja</h:outputLink>
-            </div>
-            <div style="text-align: right;">
-                <h:outputLink value="index.xhtml" class="btn-lg btn-block">Wstecz</h:outputLink>
+                <h:outputLink value="dodajpacjenta.xhtml" class="btn-lg btn-block">Rejestracja</h:outputLink>
             </div>
         </h:form>
     </h:body>

@@ -14,8 +14,9 @@
     </h:head>
 
     <h:body>
-        <h1>Rejestracja pacjenta</h1>
-        <h:form id="formularzRejestracji" class="col-md-6 center-block" style="margin-top: 200px;margin-left: 400px ;margin-right: 100px; align-content: center" >
+        
+        <h:form id="formularzRejestracji" class="col-md-6 center-block" style="margin-top: 100px;margin-left: 400px ;margin-right: 100px; align-content: center" >
+            <h1>Rejestracja pacjenta</h1>
             <div class="form-group">
                 <h:outputText value="Nazwa użytkownika: " style="font-weight: bold"/>
                 <h:inputText id="uzytkownik" value="#{pacjentBean.pacjent.username}" class="form-control" /><!--required="true"-->
@@ -38,13 +39,20 @@
                     <f:validator id="validator" validatorId="peselValidator"/>
                 </h:inputText>
             </div>
-            <div>
-                <h:selectOneMenu id="przychodnia" value="#{pacjentBean.pacjent.przychodnia}">
+            <div class="form-group">
+                <h:outputText value="Wybierz przychodnie:" style="font-weight: bold"/>
+                <h:selectOneMenu id="przychodnia" value="#{pacjentBean.pacjent.przychodnia}" class="form-control">
                     <f:converter converterId="przychodniaConverter"/>
                     <f:selectItems value="#{przychodniaBean.lista}" var="przychodnia" itemValue="#{przychodnia}" itemLabel="#{przychodnia.nazwa}"/>
                 </h:selectOneMenu>
             </div>
-            <h:commandButton action="#{pacjentBean.dodaj}" value="Dodaj" class="btn btn-success"/>          
+            
+            <h:commandButton action="#{pacjentBean.dodaj}" value="Dodaj" class="btn btn-success"/>
+            
+            <div style="text-align: right;">
+                <h:outputLink value="loginPage.xhtml" class="btn-lg btn-block">Zaloguj się</h:outputLink>
+            </div>
+            
         </h:form>  
     </h:body>
 </html>
