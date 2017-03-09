@@ -1,0 +1,46 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+                template="./szablonAplikacji.xhtml"
+                xmlns:h="http://xmlns.jcp.org/jsf/html"
+                xmlns:f="http://xmlns.jcp.org/jsf/core"
+                xmlns="http://www.w3.org/1999/xhtml">
+
+    <ui:define name="content">
+        <h1>Lista przychodni</h1>
+        <h:form>
+            <table>
+                <tr><td>Nazwa</td><td>Opis</td><td>Adres</td><td>Kontakt</td></tr>
+                <ui:repeat value="#{przychodniaBean.lista}" var="przychodnia">
+                    <tr>
+                        <td>#{przychodnia.nazwa}</td>
+                        <td>#{przychodnia.opis}</td>
+                        <td>#{przychodnia.adres}</td>
+                        <td>#{przychodnia.kontakt}</td>
+                    </tr>
+                    <td>
+                        <h:commandLink value="Edytuj" action="#{przychodniaBean.zaladujDoEdycji}" actionListener="#{przychodniaBean.przychodniaListener}">
+                            <f:param name="przychodniaID" value="#{przychodnia.id}"/>
+                        </h:commandLink>
+                    </td>
+                    <td>
+                        <h:commandLink value="Usuń" action="#{przychodniaBean.usun}" actionListener="#{przychodniaBean.przychodniaListener}">
+                            <f:param name="przychodniaID" value="#{przychodnia.id}"/>
+                        </h:commandLink>
+                    </td>
+                    
+                    <td>
+                        <h:commandLink value="Dodaj wizyte" action="#{przychodniaBean.dodajWizyte}" actionListener="#{przychodniaBean.przychodniaListener}">
+                            <f:param name="przychodniaID" value="#{przychodnia.id}"/>
+                        </h:commandLink>
+                    </td>
+                    <td>
+                        <h:commandLink value="Pokaż wizyty" action="#{przychodniaBean.pokazWizyty}" actionListener="#{przychodniaBean.przychodniaListener}">
+                            <f:param name="przychodniaID" value="#{przychodnia.id}"/>
+                        </h:commandLink>
+                    </td>
+                </ui:repeat>
+            </table>
+        </h:form>
+    </ui:define>
+</ui:composition>

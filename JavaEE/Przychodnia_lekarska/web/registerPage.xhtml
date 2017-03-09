@@ -1,0 +1,50 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+                xmlns:h="http://xmlns.jcp.org/jsf/html"
+                xmlns:f="http://xmlns.jcp.org/jsf/core"
+                xmlns="http://www.w3.org/1999/xhtml">
+    <h:head>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+        <meta http-equiv="refresh" CONTENT="15"/>
+        <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css"/>
+        <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap-theme.min.css"/>
+        <script src="//code.jquery.com/jquery-1.11.2.min.js"></script>
+        <title>Panel rejestracji</title>
+    </h:head>
+
+    <h:body>
+        <h1>Rejestracja pacjenta</h1>
+        <h:form id="formularzRejestracji" class="col-md-6 center-block" style="margin-top: 200px;margin-left: 400px ;margin-right: 100px; align-content: center" >
+            <div class="form-group">
+                <h:outputText value="Nazwa użytkownika: " style="font-weight: bold"/>
+                <h:inputText id="uzytkownik" value="#{pacjentBean.pacjent.username}" class="form-control" /><!--required="true"-->
+            </div>
+            <div class="form-group">
+                <h:outputText value="Wprowadź hasło:" style="font-weight: bold"/>
+                <h:inputText id="haslo" value="#{pacjentBean.pacjent.haslo}" class="form-control"/>
+            </div>
+            <div class="form-group">
+                <h:outputText value="Wprowadź imie:" style="font-weight: bold"/>
+                <h:inputText id="imie" value="#{pacjentBean.pacjent.imie}" class="form-control"/>
+            </div>
+            <div class="form-group">
+                <h:outputText value="Wprowadź nazwisko:" style="font-weight: bold"/>
+                <h:inputText id="nazwisko" value="#{pacjentBean.pacjent.nazwisko}" class="form-control"/>
+            </div>
+            <div class="form-group">
+                <h:outputText value="Wprowadź pesel:" style="font-weight: bold"/>
+                <h:inputText maxlength="11" id="pesel" value="#{pacjentBean.pacjent.pesel}" class="form-control">
+                    <f:validator id="validator" validatorId="peselValidator"/>
+                </h:inputText>
+            </div>
+            <div>
+                <h:selectOneMenu id="przychodnia" value="#{pacjentBean.pacjent.przychodnia}">
+                    <f:converter converterId="przychodniaConverter"/>
+                    <f:selectItems value="#{przychodniaBean.lista}" var="przychodnia" itemValue="#{przychodnia}" itemLabel="#{przychodnia.nazwa}"/>
+                </h:selectOneMenu>
+            </div>
+            <h:commandButton action="#{pacjentBean.dodaj}" value="Dodaj" class="btn btn-success"/>          
+        </h:form>  
+    </h:body>
+</html>

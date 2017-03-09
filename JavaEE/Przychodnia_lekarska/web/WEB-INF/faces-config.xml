@@ -1,0 +1,39 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<faces-config version="2.2"
+              xmlns="http://xmlns.jcp.org/xml/ns/javaee"
+              xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+              xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-facesconfig_2_2.xsd">
+
+    <managed-bean>
+        <managed-bean-name>przychodniaBean</managed-bean-name>
+        <managed-bean-class>pl.goralczyk.controllers.PrzychodniaBean</managed-bean-class>
+        <managed-bean-scope>session</managed-bean-scope>
+    </managed-bean>
+    <managed-bean>
+        <managed-bean-name>lekarzBean</managed-bean-name>
+        <managed-bean-class>pl.goralczyk.controllers.LekarzBean</managed-bean-class>
+        <managed-bean-scope>session</managed-bean-scope>
+    </managed-bean>
+    <managed-bean>
+        <managed-bean-name>pacjentBean</managed-bean-name>
+        <managed-bean-class>pl.goralczyk.controllers.PacjentBean</managed-bean-class>
+        <managed-bean-scope>session</managed-bean-scope>
+    </managed-bean>
+    <converter>
+        <converter-id>przychodniaConverter</converter-id>
+        <converter-class>pl.goralczyk.config.PrzychodniaConverter</converter-class>
+    </converter>
+    <validator>
+        <validator-id>peselValidator</validator-id>
+        <validator-class>pl.goralczyk.config.PeselValidator</validator-class>
+    </validator>
+    <managed-bean>
+        <managed-bean-name>wizytaBean</managed-bean-name>
+        <managed-bean-class>pl.goralczyk.controllers.WizytaBean</managed-bean-class>
+        <managed-bean-scope>session</managed-bean-scope>
+        <managed-property>
+            <property-name>przychodniaID</property-name>
+            <value>#{przychodniaBean.przychodnia.id}</value>
+        </managed-property>
+    </managed-bean>
+</faces-config>
