@@ -1,6 +1,6 @@
 package pl.goralczyk.config;
 
-import com.mysql.jdbc.Connection;
+import java.sql.Connection;
 import java.sql.DriverManager;
 
 public class DataConnect {
@@ -8,7 +8,7 @@ public class DataConnect {
     public static Connection getConnection() {
         try {
             Class.forName("com.mysql.jdbc.Driver");
-            Connection con = (Connection) DriverManager.getConnection(
+            Connection con = DriverManager.getConnection(
                     "jdbc:mysql://localhost:3306/przychodnialekarskadb?zeroDateTimeBehavior=convertToNull", "root", "");
             return con;
         } catch (Exception ex) {
@@ -24,4 +24,5 @@ public class DataConnect {
         } catch (Exception ex) {
         }
     }
+
 }

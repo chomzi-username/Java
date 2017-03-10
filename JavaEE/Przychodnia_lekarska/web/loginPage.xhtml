@@ -1,13 +1,13 @@
 <?xml version='1.0' encoding='UTF-8' ?>
 <!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
-                xmlns:h="http://xmlns.jcp.org/jsf/html"
-                xmlns:p="http://xmlns.jcp.org/jsf/passthrough"
-                xmlns="http://www.w3.org/1999/xhtml">
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://xmlns.jcp.org/jsf/passthrough"
+      xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
 
     <h:head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-        <meta http-equiv="refresh" CONTENT="15"/>
         <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css"/>
         <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap-theme.min.css"/>
         <script src="//code.jquery.com/jquery-1.11.2.min.js"></script>
@@ -15,19 +15,19 @@
     </h:head>
 
     <h:body class="container">
+
         <h:form id="formularzLogowania" class="col-md-6 center-block" style="margin-top: 100px;margin-left: 300px ;margin-right: 100px; align-content: center" >
             <h1>Logowanie pacjenta</h1>
             <div class="form-group">
                 <h:outputText value="Wprowadź nazwę użytkownika: " style="font-weight: bold"/>
-                <h:inputText id="inputName" value="#{logowanieBean.user}" class="form-control" />
+                <h:inputText id="inputName" value="#{logowanieBean.uname}" class="form-control" />
             </div>
             <div class="form-group">
                 <h:outputText value="Wprowadź hasło:" style="font-weight: bold"/>
-                <h:inputSecret id="inputPassword" value="#{logowanieBean.pass}" class="form-control"/>
+                <h:inputSecret id="inputPassword" value="#{logowanieBean.password}" class="form-control"/>
             </div>
-            <h:commandButton value="Zaloguj się" action="#{logowanieBean.validateUsernamePassword}" 
-                             class="btn btn-success" />
-            
+            <h:commandButton value="Zaloguj się" action="#{logowanieBean.validateUsernamePassword}" class="btn btn-success" />
+
             <div style="text-align: right;">
                 <h:outputLink value="registerPage.xhtml" class="btn-lg btn-block">Rejestracja</h:outputLink>
             </div>

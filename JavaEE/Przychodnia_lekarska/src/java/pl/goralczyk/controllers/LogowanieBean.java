@@ -1,40 +1,77 @@
 package pl.goralczyk.controllers;
 
-import java.io.IOException;
-import java.io.PrintWriter;
+import java.io.Serializable;
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
-import javax.faces.bean.ManagedProperty;
-import javax.faces.bean.RequestScoped;
+import javax.faces.bean.SessionScoped;
+import javax.faces.bean.ViewScoped;
 import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
-import javax.servlet.*;
 import javax.servlet.http.*;
 import pl.goralczyk.config.SessionUtils;
-import pl.goralczyk.entity.Pacjent;
 
-@RequestScoped
+@SessionScoped
 @ManagedBean(name = "logowanieBean")
-public class LogowanieBean extends HttpServlet {
+public class LogowanieBean implements Serializable{//extends HttpServlet
 
-    private String user;
-    private String pass;
+    private static final long serialVersionUID = 1L;
+    private String password;
+    private String message, uname;
     private PacjentBean pacjentBean;
-    private Pacjent pacjent;
-
+    
+    
+    public String getMessage() {
+        return message;
+    }
+ 
+    public void setMessage(String message) {
+        this.message = message;
+    }
+ 
+    public String getPassword() {
+        return password;
+    }
+ 
+    public void setPassword(String password) {
+        this.password = password;
+    }
+ 
+    public String getUname() {
+        return uname;
+    }
+ 
+    public void setUname(String uname) {
+        this.uname = uname;
+    }
+ 
+    public String loginProject() {
+        boolean result = PacjentBean.login(uname, password);
+        if (result) {
+            // get Http Session and store username
+            HttpSession session = SessionUtils.getSession();
+            session.setAttribute("username", uname);
+ 
+            return "/patientPage.xhtml";
+        } else {
+            return "/loginPageWarning.xhtml";
+        }
+    }
+ 
+    public String logout() {
+      HttpSession session = SessionUtils.getSession();
+      session.invalidate();
+      return "/loginPage.xhtml";
+   }
     //validate login
+    
     public String validateUsernamePassword() {
-        boolean valid = pacjentBean.validate(user, pass);
+        boolean valid = PacjentBean.validate(uname, password);
         if (valid) {
             //FacesContext.getCurrentInstance().getExternalContext().getSessionMap().put("username", user);
             HttpSession session = SessionUtils.getSession();
-            session.setAttribute("username", user);
+            session.setAttribute("username", uname);
             return "/patientPage.xhtml";
         } else {
-            FacesContext.getCurrentInstance().addMessage(
-                    null,
-                    new FacesMessage(FacesMessage.SEVERITY_WARN,
-                            "",""));
             return "/loginWarning.xhtml";
         }
     }
@@ -44,25 +81,10 @@ public class LogowanieBean extends HttpServlet {
         ExternalContext externalContext = facesContext.getExternalContext();
         externalContext.invalidateSession();
         //FacesContext.getCurrentInstance().getExternalContext().invalidateSession();
-        return "/loginPage.xhtml";
+        return "/index.xhtml";
     }
 
-    public String getUser() {
-        return user;
-    }
-
-    public void setUser(String user) {
-        this.user = user;
-    }
-
-    public String getPass() {
-        return pass;
-    }
-
-    public void setPass(String pass) {
-        this.pass = pass;
-    }
-
+    
     public PacjentBean getPacjentBean() {
         return pacjentBean;
     }

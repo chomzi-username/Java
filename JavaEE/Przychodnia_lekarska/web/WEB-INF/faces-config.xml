@@ -36,4 +36,19 @@
             <value>#{przychodniaBean.przychodnia.id}</value>
         </managed-property>
     </managed-bean>
+    
+    <navigation-rule>
+        <description>register new user</description>
+        <from-view-id>/registerPage.xhtml</from-view-id>
+        <navigation-case>
+            <from-action>#{pacjentBean.add}</from-action>
+            <from-outcome>success</from-outcome>
+            <to-view-id>/registerPageSuccess.xhtml</to-view-id>
+        </navigation-case>
+        <navigation-case>
+            <from-action>#{pacjentBean.add}</from-action>
+            <from-outcome>unsuccess</from-outcome>
+            <to-view-id>/registerPageWarning.xhtml</to-view-id>
+        </navigation-case>
+    </navigation-rule>
 </faces-config>
