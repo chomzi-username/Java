@@ -20,7 +20,7 @@
                 <ul class="nav navbar-nav">
                     <li class="active"><h:outputLink value="patientPage.xhtml" class="btn-lg btn-block">Strona główna</h:outputLink></li>
                     <li><h:outputLink value="showPatient.xhtml" class="btn-lg btn-block">Pokaż profil</h:outputLink></li>
-                    <li><h:outputLink value="edytujpacjenta.xhtml" class="btn-lg btn-block">Edytuj profil</h:outputLink></li>
+                    <li><h:outputLink value="editPatient.xhtml" class="btn-lg btn-block">Edytuj profil</h:outputLink></li>
                     <li><h:outputLink value="pokazprzychodnie.xhtml" class="btn-lg btn-block">Pokaż przychodnię</h:outputLink></li>
                     <li><h:outputLink value="pokazlekarzy.xhtml" class="btn-lg btn-block">Pokaż lekarzy</h:outputLink></li>
                 </ul>
@@ -31,7 +31,7 @@
             Zapraszamy do korzystania z opcji zawartych po lewej stronie ekranu.
             
              <div style="text-align: right;">
-                <h:commandButton value="Wyloguj" action="#{logowanieBean.wyloguj}" class="btn btn-success"/>
+                 <h:commandButton value="Wyloguj" action="#{logowanieBean.logout}" class="btn btn-success"/>
             </div>
         </h:form>
     </h:body>

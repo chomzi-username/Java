@@ -20,11 +20,11 @@
             <h1>Logowanie pacjenta</h1>
             <div class="form-group">
                 <h:outputText value="Wprowadź nazwę użytkownika: " style="font-weight: bold"/>
-                <h:inputText id="inputName" value="#{logowanieBean.uname}" class="form-control" />
+                <h:inputText id="inputName" value="#{logowanieBean.uname}" class="form-control" required="true"/>
             </div>
             <div class="form-group">
                 <h:outputText value="Wprowadź hasło:" style="font-weight: bold"/>
-                <h:inputSecret id="inputPassword" value="#{logowanieBean.password}" class="form-control"/>
+                <h:inputSecret id="inputPassword" value="#{logowanieBean.password}" class="form-control" required="true"/>
             </div>
             <h:commandButton value="Zaloguj się" action="#{logowanieBean.validateUsernamePassword}" class="btn btn-success" />
 

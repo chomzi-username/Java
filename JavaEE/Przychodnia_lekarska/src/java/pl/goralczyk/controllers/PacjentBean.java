@@ -1,4 +1,3 @@
-
 package pl.goralczyk.controllers;
 
 import java.sql.PreparedStatement;
@@ -6,26 +5,30 @@ import java.awt.event.ActionEvent;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.List;
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.SessionScoped;
 import javax.faces.bean.ViewScoped;
 import javax.faces.context.FacesContext;
 import javax.persistence.EntityManager;
+import javax.persistence.Query;
 import pl.goralczyk.config.DBManager;
 import pl.goralczyk.config.DataConnect;
 import pl.goralczyk.entity.Pacjent;
+import pl.goralczyk.entity.Przychodnia;
 
 @SessionScoped
 public class PacjentBean {
+
     private Pacjent pacjent = new Pacjent();
     private String username;
     private String password;
     private String imie;
     private String nazwisko;
     private String pesel;
-    private String przychodniaID;
-    private String ID;
+    private Przychodnia przychodniaID;
+    private long ID;
     DataConnect dc;
 
     public String getUsername() {
@@ -68,19 +71,20 @@ public class PacjentBean {
         this.pesel = pesel;
     }
 
-    public String getPrzychodniaID() {
+    public Przychodnia getPrzychodniaID() {
         return przychodniaID;
     }
 
-    public void setPrzychodniaID(String przychodniaID) {
+    public void setPrzychodniaID(Przychodnia przychodniaID) {
         this.przychodniaID = przychodniaID;
     }
 
-    public String getID() {
+
+    public long getID() {
         return ID;
     }
 
-    public void setID(String ID) {
+    public void setID(long ID) {
         this.ID = ID;
     }
 
@@ -91,6 +95,7 @@ public class PacjentBean {
     public void setPacjent(Pacjent pacjent) {
         this.pacjent = pacjent;
     }
+
     public static boolean validate(String user, String password) {
         Connection con = null;
         PreparedStatement ps = null;
@@ -115,32 +120,47 @@ public class PacjentBean {
         }
         return false;
     }
-    public static boolean login(String user, String password) {
-        Connection con = null;
-        PreparedStatement ps = null;
-        try {
-            con = DataConnect.getConnection();
-            ps = con.prepareStatement("Select username, haslo from pacjent where username = ? and haslo = ?");
-            ps.setString(1, user);
-            ps.setString(2, password);
-  
-            ResultSet rs = ps.executeQuery();
-            if (rs.next()) // found
-            {
-                //System.out.println(rs.getString("user"));
-                return true;
-            }
-            else {
-                return false;
-            }
-        } catch (Exception ex) {
-            //System.out.println("Error in login() -->" + ex.getMessage());
-            return false;
-        } finally {
-            DataConnect.close(con);
+
+    public List<Pacjent> getCustomerList() throws SQLException {
+        DataConnect dc = new DataConnect();
+
+        if (dc == null) {
+            throw new SQLException("Can't get data source");
         }
+
+        //get database connection
+        Connection con = dc.getConnection();
+
+        if (con == null) {
+            throw new SQLException("Can't get database connection");
+        }
+
+        PreparedStatement ps
+                = con.prepareStatement(
+                        "select ID, imie, nazwisko, pesel, username, haslo from pacjent");
+
+        //get customer data from database
+        ResultSet result = ps.executeQuery();
+
+        List<Pacjent> list = new ArrayList<Pacjent>();
+
+        while (result.next()) {
+            Pacjent pacjent = new Pacjent();
+
+            pacjent.setId(result.getInt("ID"));
+            pacjent.setImie(result.getString("imie"));
+            pacjent.setNazwisko(result.getString("nazwisko"));
+            pacjent.setPesel(result.getString("pesel"));
+            pacjent.setUsername(result.getString("username"));
+            pacjent.setHaslo(result.getString("haslo"));
+
+            //store all data into a List
+            list.add(pacjent);
+        }
+
+        return list;
     }
-    
+
     public String dodaj() {
         EntityManager em = DBManager.getManager().createEntityManager();
         em.getTransaction().begin();
@@ -167,7 +187,7 @@ public class PacjentBean {
         EntityManager em = DBManager.getManager().createEntityManager();
         this.pacjent = em.find(Pacjent.class, pacjent.getId());
         em.close();
-        return "/edytujpacjenta.xhtml";
+        return "/editPatient.xhtml";
     }
 
     public String usun() {
@@ -178,7 +198,6 @@ public class PacjentBean {
         this.pacjent = new Pacjent();
         em.getTransaction().commit();
         em.close();
-        this.dodajInformacje("Usunięto pacjenta");
         return null;
     }
 
@@ -195,12 +214,8 @@ public class PacjentBean {
         em.merge(this.pacjent);
         em.getTransaction().commit();
         em.close();
-        this.dodajInformacje("Zmieniono dane pacjenta!");
         this.pacjent = new Pacjent();
-        return "/pokazpacjenta.xhtml";
+        return "/editPatientSuccess.xhtml";//nie podmienia danych tylko dodaje nowego użytkownika(mozliwe ze dlatgo ze nie wyswietla wszystkich danych)
     }
-    
-}
 
-    
-    
+}

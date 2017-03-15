@@ -8,26 +8,77 @@ import javax.faces.bean.ViewScoped;
 import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
 import javax.servlet.http.*;
+import pl.goralczyk.config.DataConnect;
 import pl.goralczyk.config.SessionUtils;
+import pl.goralczyk.entity.Pacjent;
+import pl.goralczyk.entity.Przychodnia;
 
 @SessionScoped
 @ManagedBean(name = "logowanieBean")
-public class LogowanieBean implements Serializable{//extends HttpServlet
+public class LogowanieBean implements Serializable{
 
     private static final long serialVersionUID = 1L;
     private String password;
-    private String message, uname;
+    private String uname;
     private PacjentBean pacjentBean;
     
-    
-    public String getMessage() {
-        return message;
+    private String imie;
+    private String nazwisko;
+    private String pesel;
+    private Przychodnia przychodniaID;
+    private long ID;
+    private Pacjent pacjent = new Pacjent();
+
+
+    public String getImie() {
+        return imie;
     }
- 
-    public void setMessage(String message) {
-        this.message = message;
+
+    public void setImie(String imie) {
+        this.imie = imie;
     }
- 
+
+    public String getNazwisko() {
+        return nazwisko;
+    }
+
+    public void setNazwisko(String nazwisko) {
+        this.nazwisko = nazwisko;
+    }
+
+    public String getPesel() {
+        return pesel;
+    }
+
+    public void setPesel(String pesel) {
+        this.pesel = pesel;
+    }
+
+    public Przychodnia getPrzychodniaID() {
+        return przychodniaID;
+    }
+
+    public void setPrzychodniaID(Przychodnia przychodniaID) {
+        this.przychodniaID = przychodniaID;
+    }
+
+
+    public long getID() {
+        return ID;
+    }
+
+    public void setID(long ID) {
+        this.ID = ID;
+    }
+
+    public Pacjent getPacjent() {
+        return pacjent;
+    }
+
+    public void setPacjent(Pacjent pacjent) {
+        this.pacjent = pacjent;
+    }
+
     public String getPassword() {
         return password;
     }
@@ -43,44 +94,28 @@ public class LogowanieBean implements Serializable{//extends HttpServlet
     public void setUname(String uname) {
         this.uname = uname;
     }
- 
-    public String loginProject() {
-        boolean result = PacjentBean.login(uname, password);
-        if (result) {
-            // get Http Session and store username
-            HttpSession session = SessionUtils.getSession();
-            session.setAttribute("username", uname);
- 
-            return "/patientPage.xhtml";
-        } else {
-            return "/loginPageWarning.xhtml";
-        }
-    }
- 
-    public String logout() {
-      HttpSession session = SessionUtils.getSession();
-      session.invalidate();
-      return "/loginPage.xhtml";
-   }
-    //validate login
     
     public String validateUsernamePassword() {
         boolean valid = PacjentBean.validate(uname, password);
         if (valid) {
-            //FacesContext.getCurrentInstance().getExternalContext().getSessionMap().put("username", user);
             HttpSession session = SessionUtils.getSession();
             session.setAttribute("username", uname);
+            session.setAttribute("haslo", password);
+            /*
+            session.setAttribute("imie", imie);
+            session.setAttribute("nazwisko", nazwisko);
+            session.setAttribute("pesel", pesel);*/
             return "/patientPage.xhtml";
         } else {
             return "/loginWarning.xhtml";
         }
     }
+    
 
-    public String wyloguj() {
+    public String logout() {
         FacesContext facesContext = FacesContext.getCurrentInstance();
         ExternalContext externalContext = facesContext.getExternalContext();
         externalContext.invalidateSession();
-        //FacesContext.getCurrentInstance().getExternalContext().invalidateSession();
         return "/index.xhtml";
     }
 
