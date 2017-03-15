@@ -89,13 +89,13 @@ public class PrzychodniaBean {
         EntityManager em = DBManager.getManager().createEntityManager();
         this.przychodnia = em.find(Przychodnia.class, przychodnia.getId());
         em.close();
-        return "/pokazwizyty.xhtml";
+        return "/showVisits.xhtml";
     }
     
     public String dodajWizyte() {
         EntityManager em = DBManager.getManager().createEntityManager();
         this.przychodnia = em.find(Przychodnia.class, przychodnia.getId());
         em.close();
-        return "/dodajwizyte.xhtml";
+        return "/addVisit.xhtml";
     }
 }

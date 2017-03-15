@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
+
+    <h:head>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+        <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css"/>
+        <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap-theme.min.css"/>
+        <script src="//code.jquery.com/jquery-1.11.2.min.js"></script>
+        <title>Dodawanie wizyty</title>
+    </h:head>
+    <h:body>
+        <nav class="navbar navbar-default">
+            <div class="container-fluid">
+                <div class="navbar-header">
+                    <a class="navbar-brand" href="#">Przychodnia lekarska</a>
+                </div>
+                <ul class="nav navbar-nav">
+                    <li class="active"><h:outputLink value="patientPage.xhtml" class="btn-lg btn-block">Strona główna</h:outputLink></li>
+                    <li><h:outputLink value="showPatient.xhtml" class="btn-lg btn-block">Pokaż profil</h:outputLink></li>
+                    <li><h:outputLink value="editPatient.xhtml" class="btn-lg btn-block">Edytuj profil</h:outputLink></li>
+                    <li><h:outputLink value="showClinics.xhtml" class="btn-lg btn-block">Pokaż przychodnie</h:outputLink></li>
+                    <li><h:outputLink value="showDoctors.xhtml" class="btn-lg btn-block">Pokaż lekarzy</h:outputLink></li>
+                </ul>
+            </div>
+        </nav>      
+        <h:form id="formularzLekarzy" class="col-md-6 center-block" style="margin-top: 50px;margin-left: 500px ;margin-right: 100px; align-content: center">
+        <h1>Dodaj wizyte</h1>
+            <table>
+                <tr>
+                    <td>Wybierz lekarza:</td>
+                    <td>
+                        <h:selectOneMenu id="lekarz" value="#{wizytaBean.wizyta.wizytaPK.lekarz}" required="true">
+                            <f:selectItems value="#{przychodniaBean.przychodnia.lekarzSet}" var="lekarz" itemValue="#{lekarz.id}" itemLabel="#{lekarz.imie} #{lekarz.nazwisko}"/>
+                        </h:selectOneMenu>
+                    </td>
+                </tr>
+                <tr>
+                    <td>Wybierz pacjenta:</td>
+                    <td>
+                        <h:selectOneMenu id="pacjent" value="#{wizytaBean.wizyta.wizytaPK.pacjent}" required="true">
+                            <f:selectItems value="#{przychodniaBean.przychodnia.pacjentSet}" var="pacjent" itemValue="#{pacjent.id}" itemLabel="#{pacjent.imie} #{pacjent.nazwisko}"/>
+                        </h:selectOneMenu>
+                    </td>
+                </tr>
+                <tr>
+                    <td>Wpisz datę i czas(w formacie RRRR-MM-DD GG:MM:SS):</td>
+                    <td>
+                        <h:inputText value="#{wizytaBean.wizyta.wizytaPK.data}" required="true">
+                            <f:convertDateTime pattern="yyyy-MM-dd HH:mm:ss" timeZone="GMT+1" type="both"/>
+                        </h:inputText>
+                    </td>
+                </tr>
+                <tr>
+                    <td>Wpisz nr pokoju:</td>
+                    <td>
+                        <h:inputText value="#{wizytaBean.wizyta.pokoj}" required="true"/>
+                    </td>
+                </tr>
+                <tr>
+                    <td></td><td><h:commandButton action="#{wizytaBean.dodaj}" value="Dodaj"/></td>
+                </tr>
+            </table>
+        </h:form>
+    </h:body>
+</html>
