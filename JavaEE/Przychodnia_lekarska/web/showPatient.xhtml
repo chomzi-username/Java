@@ -39,30 +39,41 @@
                 </h:column>
             </div>
             <div class="form-group">
-                <h:outputText value="Twoje hasło:" style="font-weight: bold"/>
-                <h:outputText value="#{logowanieBean.password}"/>
+                <h:column>
+                    <h:outputText value="Twoje hasło:" style="font-weight: bold"/>
+                    <h:outputText value="#{logowanieBean.password}"/>
+                </h:column>
             </div>
-            
+
             <div class="form-group">
-                <h:outputText value="Twoje imie:" style="font-weight: bold"/>
-                <h:outputText value="#{logowanieBean.imie}"/>
-            </div>
-            <div class="form-group">
-                <h:outputText value="Twoje nazwisko:" style="font-weight: bold"/>
-                <h:outputText value="#{logowanieBean.nazwisko}"/>
-            </div>
-            <div class="form-group">
-                <h:outputText value="Twój pesel:" style="font-weight: bold"/>
-                <h:outputText value="#{logowanieBean.pesel}"/>
+                <h:column>
+                    <h:outputText value="Twoje imie:" style="font-weight: bold"/>
+                    <h:outputText value="#{logowanieBean.imie}"/>
+                </h:column>
             </div>
             <div class="form-group">
-                <h:outputText value="Twoja przychodnia:" style="font-weight: bold"/>
-                <h:outputText value="#{pacjent.przychodnia}"/>
+                <h:column>
+                    <h:outputText value="Twoje nazwisko:" style="font-weight: bold"/>
+                    <h:outputText value="#{logowanieBean.nazwisko}"/>
+                </h:column>
             </div>
- 
-            <h:commandButton action="#{pacjentBean.zaladujDoEdycji}" value="Edytuj" class="btn btn-warning" actionListener="#{pacjentBean.pacjentListener}">
-                <f:param name="pacjentID" value="#{pacjent.id}"/>
-            </h:commandButton>
+            <div class="form-group">
+                <h:column>
+                    <h:outputText value="Twój pesel:" style="font-weight: bold"/>
+                    <h:outputText value="#{logowanieBean.pesel}"/>
+                </h:column>
+            </div>
+            <div class="form-group">
+                <h:column>
+                    <h:outputText value="Twoja przychodnia:" style="font-weight: bold"/>
+                    <h:outputText value="#{pacjent.przychodnia}"/>
+                </h:column>
+            </div>
+            <h:column>
+                <h:commandButton action="#{pacjentBean.zaladujDoEdycji}" value="Edytuj" class="btn btn-warning" actionListener="#{pacjentBean.pacjentListener}">
+                    <f:param name="pacjentID" value="#{pacjent.id}"/>
+                </h:commandButton>
+            </h:column>
             <!--</h:dataTable>-->
         </h:form> 
     </h:body>

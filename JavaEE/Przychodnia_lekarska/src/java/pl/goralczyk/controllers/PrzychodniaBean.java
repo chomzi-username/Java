@@ -32,7 +32,6 @@ public class PrzychodniaBean {
         przychodnia.setId(null);
         em.persist(przychodnia);
         em.getTransaction().commit();
-        this.dodajInformacje("Dodano przychodnie!");
         em.close();
         this.przychodnia = new Przychodnia();
         return null;
@@ -55,7 +54,7 @@ public class PrzychodniaBean {
         EntityManager em = DBManager.getManager().createEntityManager();
         this.przychodnia = em.find(Przychodnia.class, przychodnia.getId());
         em.close();
-        return "/edytujprzychodnie.xhtml";
+        return "/editClinic.xhtml";
     }
 
     public String usun() {
@@ -66,7 +65,6 @@ public class PrzychodniaBean {
         this.przychodnia = new Przychodnia();
         em.getTransaction().commit();
         em.close();
-        this.dodajInformacje("Usunięto przychodnie!");
         return null;
     }
 
@@ -80,9 +78,8 @@ public class PrzychodniaBean {
         em.merge(przychodnia);
         em.getTransaction().commit();
         em.close();
-        this.dodajInformacje("Zmieniono dane przychodni!");
         this.przychodnia = new Przychodnia();
-        return "/pokazprzychodnie.xhtml";
+        return "/showClinics.xhtml";
     }
 
     public String pokazWizyty() {

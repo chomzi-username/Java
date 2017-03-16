@@ -1,14 +1,33 @@
 <?xml version='1.0' encoding='UTF-8' ?>
 <!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<ui:composition xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
-                template="./szablonAplikacji.xhtml"
-                xmlns:h="http://xmlns.jcp.org/jsf/html"
-                xmlns:f="http://xmlns.jcp.org/jsf/core"
-                xmlns="http://www.w3.org/1999/xhtml">
+<html xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+    <h:head>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+        <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css"/>
+        <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap-theme.min.css"/>
+        <script src="//code.jquery.com/jquery-1.11.2.min.js"></script>
+        <title>Strona pacjenta</title>
+    </h:head>
 
-    <ui:define name="content">
-        <h1>Lista przychodni</h1>
-        <h:form>
+    <h:body>
+        <nav class="navbar navbar-default">
+            <div class="container-fluid">
+                <div class="navbar-header">
+                    <a class="navbar-brand" href="#">Przychodnia lekarska</a>
+                </div>
+                <ul class="nav navbar-nav">
+                    <li class="active"><h:outputLink value="adminPage.xhtml" class="btn-lg btn-block">Strona główna</h:outputLink></li>
+                    <li><h:outputLink value="listOfPatient.xhtml" class="btn-lg btn-block">Lista pacjentów</h:outputLink></li>
+                    <li><h:outputLink value="listOfClinics.xhtml" class="btn-lg btn-block">Lista przychodni</h:outputLink></li>
+                    <li><h:outputLink value="listOfDoctors.xhtml" class="btn-lg btn-block">Lista lekarzy</h:outputLink></li>
+                </ul>
+            </div>
+        </nav>
+        <h:form id="adminPage" class="col-md-6 center-block" style="margin-top: 50px;margin-left: 400px ;margin-right: 200px; align-content: center" >
+            <h1>Lista przychodni</h1>
             <table>
                 <tr><td>Nazwa</td><td>Opis</td><td>Adres</td><td>Kontakt</td></tr>
                 <ui:repeat value="#{przychodniaBean.lista}" var="przychodnia">
@@ -42,5 +61,5 @@
                 </ui:repeat>
             </table>
         </h:form>
-    </ui:define>
-</ui:composition>
+    </h:body>
+</html>

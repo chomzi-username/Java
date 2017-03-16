@@ -27,37 +27,49 @@
                 </ul>
             </div>
         </nav>
-        <h:form id="formularzLekarzy" class="col-md-6 center-block" style="margin-top: 50px;margin-left: 500px ;margin-right: 100px; align-content: center">
+        <h:form id="formularzLekarzy" class="col-md-6 center-block" style="margin-top: 50px;margin-left: 400px ;margin-right: 100px; align-content: center">
             <h1>Lista wizyt</h1>
             <h:dataTable value="#{wizytaBean.listaWizyt}" var="wizyta">
-                <h:column>
-                    <f:facet name="header">Edytuj</f:facet>
-                    <h:commandButton value="Edytuj" action="#{wizytaBean.zaladujDoEdycji}" actionListener="#{wizytaBean.wizytaListener}" class="btn btn-success">
-                        <f:param name="wizytaPK" value="#{wizyta.wizytaPKAsString}"/>
-                    </h:commandButton>
-                </h:column>
-                <h:column>
-                    <f:facet name="header">Usuń</f:facet>
-                    <h:commandButton value="Usuń" action="#{wizytaBean.usun}" actionListener="#{wizytaBean.wizytaListener}" class="btn btn-success">
-                        <f:param name="wizytaPK" value="#{wizyta.wizytaPKAsString}"/>
-                    </h:commandButton>
-                </h:column>
-                <h:column>
-                    <f:facet name="header">Lekarz</f:facet>
-                    <h:outputText value="#{wizyta.lekarz1.imie} #{wizyta.lekarz1.nazwisko}"/>
-                </h:column>
-                <h:column>
-                    <f:facet name="header">Pacjent</f:facet>
-                    <h:outputText value="#{wizyta.pacjent1.imie} #{wizyta.pacjent1.nazwisko}"/>
-                </h:column>
-                <h:column>
-                    <f:facet name="header">Data</f:facet>
-                    <h:outputText value="#{wizyta.wizytaPK.data}"/>
-                </h:column>
-                <h:column>
-                    <f:facet name="header">Nr pokoju</f:facet>
-                    <h:outputText value="#{wizyta.pokoj}"/>
-                </h:column>
+                <div class="form-group">
+                    <h:column>
+                        <f:facet name="header">Edytuj</f:facet>
+                        <h:commandButton value="Edytuj" action="#{wizytaBean.zaladujDoEdycji}" actionListener="#{wizytaBean.wizytaListener}" class="btn btn-success">
+                            <f:param name="wizytaPK" value="#{wizyta.wizytaPKAsString}"/>
+                        </h:commandButton>
+                    </h:column>
+                </div>
+                <div class="form-group">
+                    <h:column>
+                        <f:facet name="header">Usuń</f:facet>
+                        <h:commandButton value="Usuń" action="#{wizytaBean.usun}" actionListener="#{wizytaBean.wizytaListener}" class="btn btn-success">
+                            <f:param name="wizytaPK" value="#{wizyta.wizytaPKAsString}"/>
+                        </h:commandButton>
+                    </h:column>
+                </div>
+                <div class="form-group">
+                    <h:column>
+                        <f:facet name="header">Lekarz</f:facet>
+                        <h:outputText value="#{wizyta.lekarz1.imie} #{wizyta.lekarz1.nazwisko}"/>
+                    </h:column>
+                </div>
+                <div class="form-group">
+                    <h:column>
+                        <f:facet name="header">Pacjent</f:facet>
+                        <h:outputText value="#{wizyta.pacjent1.imie} #{wizyta.pacjent1.nazwisko}"/>
+                    </h:column>
+                </div>
+                <div class="form-group">
+                    <h:column>
+                        <f:facet name="header">Data</f:facet>
+                        <h:outputText value="#{wizyta.wizytaPK.data}"/>
+                    </h:column>
+                </div>
+                <div class="form-group">
+                    <h:column>
+                        <f:facet name="header">Nr pokoju</f:facet>
+                        <h:outputText value="#{wizyta.pokoj}"/>
+                    </h:column>
+                </div>
             </h:dataTable>
         </h:form>
     </h:body>

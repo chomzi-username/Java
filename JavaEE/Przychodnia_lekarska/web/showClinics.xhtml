@@ -12,6 +12,7 @@
         <script src="//code.jquery.com/jquery-1.11.2.min.js"></script>
         <title>Lista przychodni</title>
     </h:head>
+
     <h:body>
         <nav class="navbar navbar-default">
             <div class="container-fluid">
@@ -30,26 +31,25 @@
         <h:form id="formularzKlinik" class="col-md-6 center-block" style="margin-top: 50px;margin-left: 500px ;margin-right: 100px; align-content: center">
             <h1>Lista przychodni</h1>
             <table>
-                <tr><td>Nazwa</td><td>Opis</td><td>Adres</td><td>Kontakt</td></tr>
-                <ui:repeat value="#{przychodniaBean.lista}" var="przychodnia">
-                    <tr>
-                        <td>#{przychodnia.nazwa}</td>
-                        <td>#{przychodnia.opis}</td>
-                        <td>#{przychodnia.adres}</td>
-                        <td>#{przychodnia.kontakt}</td>
-                    </tr>
-                    
-                    
-                    <td>
-                        <h:commandLink value="Dodaj wizyte" action="#{przychodniaBean.dodajWizyte}" actionListener="#{przychodniaBean.przychodniaListener}">
-                            <f:param name="przychodniaID" value="#{przychodnia.id}"/>
-                        </h:commandLink>
-                    </td>
-                    <td>
-                        <h:commandLink value="Pokaż wizyty" action="#{przychodniaBean.pokazWizyty}" actionListener="#{przychodniaBean.przychodniaListener}">
-                            <f:param name="przychodniaID" value="#{przychodnia.id}"/>
-                        </h:commandLink>
-                    </td>
+                <ui:repeat value="#{przychodniaBean.lista}" var="przychodnia" >
+                    <div class="form-group" style="margin-bottom: 30px">
+                        <tr><td>Nazwa</td><td><h:outputText value="#{przychodnia.nazwa}" class="form-control"/></td></tr>
+                        <tr><td>Opis</td><td><h:outputText value="#{przychodnia.opis}" class="form-control"/></td></tr>
+                        <tr><td>Adres</td><td><h:outputText value="#{przychodnia.adres}" class="form-control"/></td></tr>
+                        <tr><td>Kontakt</td><td><h:outputText value="#{przychodnia.kontakt}" class="form-control"/></td></tr>
+                        <div class="form-group" style="margin-right: 8px">
+                            <td>
+                                <h:commandLink class="someClass" value="Dodaj wizyte" action="#{przychodniaBean.dodajWizyte}" actionListener="#{przychodniaBean.przychodniaListener}" >
+                                    <f:param name="przychodniaID" value="#{przychodnia.id}"/>
+                                </h:commandLink>
+                            </td>
+                            <td>
+                                <h:commandLink class="someClass" value="Pokaż wizyty" action="#{przychodniaBean.pokazWizyty}" actionListener="#{przychodniaBean.przychodniaListener}" >
+                                    <f:param name="przychodniaID" value="#{przychodnia.id}"/>
+                                </h:commandLink>
+                            </td>
+                        </div>
+                    </div>
                 </ui:repeat>
             </table>
         </h:form>

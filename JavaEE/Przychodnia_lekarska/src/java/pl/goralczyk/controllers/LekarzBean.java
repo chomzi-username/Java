@@ -28,7 +28,6 @@ public class LekarzBean {
         em.persist(lekarz);
         em.getTransaction().commit();
         em.close();
-        this.dodajInformacje("Dodano lekarza!");
         this.lekarz = new Lekarz();
         return null;
     }
@@ -47,7 +46,7 @@ public class LekarzBean {
         EntityManager em = DBManager.getManager().createEntityManager();
         this.lekarz = em.find(Lekarz.class, lekarz.getId());
         em.close();
-        return "/edytujlekarza.xhtml";
+        return "/editDoctor.xhtml";
     }
 
     public String usun() {
@@ -58,7 +57,6 @@ public class LekarzBean {
         this.lekarz = new Lekarz();
         em.getTransaction().commit();
         em.close();
-        this.dodajInformacje("Usunięto lekarza");
         return null;
     }
 
@@ -75,8 +73,7 @@ public class LekarzBean {
         em.merge(this.lekarz);
         em.getTransaction().commit();
         em.close();
-        this.dodajInformacje("Zmieniono dane lekarza!");
         this.lekarz = new Lekarz();
-        return "/pokazlekarzy.xhtml";
+        return "/showDoctors.xhtml";
     }
 }
