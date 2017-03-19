@@ -85,7 +85,7 @@ public class WizytaBean {
         this.staraWizyta = new Wizyta(wizyta.getWizytaPK().getLekarz(), wizyta.getWizytaPK().getPacjent(), wizyta.getWizytaPK().getData());
         this.staraWizyta.setPokoj(this.wizyta.getPokoj());
         em.close();
-        return "/edytujwizyte.xhtml";
+        return "/editVisit.xhtml";
     }
 
     public String usun() {
@@ -119,6 +119,6 @@ public class WizytaBean {
         }
         this.dodajInformacje("Zmieniono dane wizyty!");
         this.inicjujWizyte();
-        return "/pokazwizyty.xhtml";
+        return "/showVisits.xhtml";
     }
 }

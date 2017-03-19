@@ -18,15 +18,15 @@
                     <a class="navbar-brand" href="#">Przychodnia lekarska</a>
                 </div>
                 <ul class="nav navbar-nav">
-                    <li class="active"><h:outputLink value="adminPage.xhtml" class="btn-lg btn-block">Strona główna</h:outputLink></li>
-                    <li><h:outputLink value="listOfPatient.xhtml" class="btn-lg btn-block">Lista pacjentów</h:outputLink></li>
-                    <li><h:outputLink value="listOfClinics.xhtml" class="btn-lg btn-block">Lista przychodni</h:outputLink></li>
-                    <li><h:outputLink value="listOfDoctors.xhtml" class="btn-lg btn-block">Lista lekarzy</h:outputLink></li>
+                    <li class="active"><h:outputLink value="/Admin/adminPage.xhtml" class="btn-lg btn-block">Strona główna</h:outputLink></li>
+                    <li><h:outputLink value="/Admin/listOfPatient.xhtml" class="btn-lg btn-block">Lista pacjentów</h:outputLink></li>
+                    <li><h:outputLink value="/Admin/listOfClinics.xhtml" class="btn-lg btn-block">Lista przychodni</h:outputLink></li>
+                    <li><h:outputLink value="/Admin/listOfDoctors.xhtml" class="btn-lg btn-block">Lista lekarzy</h:outputLink></li>
                 </ul>
             </div>
         </nav>
         <h:form id="adminPage" class="col-md-6 center-block" style="margin-top: 50px;margin-left: 400px ;margin-right: 200px; align-content: center" >
-            <strong>Panel admina</strong>
+            
             <h1>Witaj <h:outputText value="#{logowanieBean.uname}"/></h1>
             Strona admina służy do zarządzania przychodnią lekarską.
             <div style="text-align: right;">

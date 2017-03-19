@@ -27,9 +27,18 @@ public class PacjentBean {
     private String imie;
     private String nazwisko;
     private String pesel;
-    private Przychodnia przychodniaID;
+    private int przychodniaID;
     private long ID;
+    private int pacjentId;
     DataConnect dc;
+    
+    public int getPacjentId() {
+        return pacjentId;
+    }
+
+    public void setPacjentId(int pacjentId) {
+        this.pacjentId = pacjentId;
+    }
 
     public String getUsername() {
         return username;
@@ -71,14 +80,13 @@ public class PacjentBean {
         this.pesel = pesel;
     }
 
-    public Przychodnia getPrzychodniaID() {
+    public int getPrzychodniaID() {
         return przychodniaID;
     }
 
-    public void setPrzychodniaID(Przychodnia przychodniaID) {
+    public void setPrzychodniaID(int przychodniaID) {
         this.przychodniaID = przychodniaID;
     }
-
 
     public long getID() {
         return ID;
@@ -96,6 +104,40 @@ public class PacjentBean {
         this.pacjent = pacjent;
     }
 
+    public List<PacjentBean> getUserList() {
+        List<PacjentBean> list = new ArrayList<PacjentBean>();
+        PreparedStatement ps = null;
+        Connection con = null;
+        ResultSet rs = null;
+        try {
+            Class.forName("com.mysql.jdbc.Driver");
+            con = DataConnect.getConnection();
+            String sql = "select * from pacjent";
+            ps = con.prepareStatement(sql);
+            rs = ps.executeQuery();
+            while (rs.next()) {
+                PacjentBean usr = new PacjentBean();
+                usr.setID(rs.getInt("ID"));
+                usr.setImie(rs.getString("imie"));
+                usr.setNazwisko(rs.getString("nazwisko"));
+                usr.setPesel(rs.getString("pesel"));
+                usr.setPrzychodniaID(rs.getInt("przychodnia"));
+                usr.setUsername(rs.getString("username"));
+                usr.setPassword(rs.getString("haslo"));
+                list.add(usr);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            try {
+                DataConnect.close(con);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+        return list;
+    }
+
     public static boolean validate(String user, String password) {
         Connection con = null;
         PreparedStatement ps = null;
@@ -105,60 +147,17 @@ public class PacjentBean {
             ps = (PreparedStatement) con.prepareStatement("Select username, haslo from pacjent where username = ? and haslo = ?");
             ps.setString(1, user);
             ps.setString(2, password);
-
             ResultSet rs = ps.executeQuery();
 
             if (rs.next()) {
-                //result found, means valid inputs
                 return true;
             }
         } catch (SQLException ex) {
-            //System.out.println("Login error -->" + ex.getMessage());
             return false;
         } finally {
-            DataConnect.close((com.mysql.jdbc.Connection) con);
+            DataConnect.close(con);
         }
         return false;
-    }
-
-    public List<Pacjent> getCustomerList() throws SQLException {
-        DataConnect dc = new DataConnect();
-
-        if (dc == null) {
-            throw new SQLException("Can't get data source");
-        }
-
-        //get database connection
-        Connection con = dc.getConnection();
-
-        if (con == null) {
-            throw new SQLException("Can't get database connection");
-        }
-
-        PreparedStatement ps
-                = con.prepareStatement(
-                        "select ID, imie, nazwisko, pesel, username, haslo from pacjent");
-
-        //get customer data from database
-        ResultSet result = ps.executeQuery();
-
-        List<Pacjent> list = new ArrayList<Pacjent>();
-
-        while (result.next()) {
-            Pacjent pacjent = new Pacjent();
-
-            pacjent.setId(result.getInt("ID"));
-            pacjent.setImie(result.getString("imie"));
-            pacjent.setNazwisko(result.getString("nazwisko"));
-            pacjent.setPesel(result.getString("pesel"));
-            pacjent.setUsername(result.getString("username"));
-            pacjent.setHaslo(result.getString("haslo"));
-
-            //store all data into a List
-            list.add(pacjent);
-        }
-
-        return list;
     }
 
     public String dodaj() {
@@ -185,7 +184,9 @@ public class PacjentBean {
 
     public String zaladujDoEdycji() {
         EntityManager em = DBManager.getManager().createEntityManager();
-        this.pacjent = em.find(Pacjent.class, pacjent.getId());
+
+        this.pacjent = em.find(Pacjent.class,
+                 pacjent.getId());
         em.close();
         return "/editPatient.xhtml";
     }
@@ -193,7 +194,9 @@ public class PacjentBean {
     public String usun() {
         EntityManager em = DBManager.getManager().createEntityManager();
         em.getTransaction().begin();
-        this.pacjent = em.find(Pacjent.class, pacjent.getId());
+
+        this.pacjent = em.find(Pacjent.class,
+                 pacjent.getId());
         em.remove(this.pacjent);
         this.pacjent = new Pacjent();
         em.getTransaction().commit();
@@ -206,6 +209,13 @@ public class PacjentBean {
         List list = em.createNamedQuery("Pacjent.findAll").getResultList();
         em.close();
         return list;
+    }
+
+    public List<Pacjent> getListOfPerson() {
+        EntityManager em = DBManager.getManager().createEntityManager();//w.lekarz1.przychodnia.id=:id"
+        List<Pacjent> lista = em.createNamedQuery("SELECT p FROM Pacjent p WHERE p.id = :id").getResultList();
+        em.close();
+        return lista;
     }
 
     public String edytuj() {

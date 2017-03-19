@@ -15,20 +15,19 @@ import pl.goralczyk.entity.Przychodnia;
 
 @SessionScoped
 @ManagedBean(name = "logowanieBean")
-public class LogowanieBean implements Serializable{
+public class LogowanieBean implements Serializable {
 
     private static final long serialVersionUID = 1L;
     private String password;
     private String uname;
     private PacjentBean pacjentBean;
-    
+
     private String imie;
     private String nazwisko;
     private String pesel;
     private Przychodnia przychodniaID;
     private long ID;
     private Pacjent pacjent = new Pacjent();
-
 
     public String getImie() {
         return imie;
@@ -62,7 +61,6 @@ public class LogowanieBean implements Serializable{
         this.przychodniaID = przychodniaID;
     }
 
-
     public long getID() {
         return ID;
     }
@@ -82,35 +80,36 @@ public class LogowanieBean implements Serializable{
     public String getPassword() {
         return password;
     }
- 
+
     public void setPassword(String password) {
         this.password = password;
     }
- 
+
     public String getUname() {
         return uname;
     }
- 
+
     public void setUname(String uname) {
         this.uname = uname;
     }
-    
+
     public String validateUsernamePassword() {
         boolean valid = PacjentBean.validate(uname, password);
         if (valid) {
-            HttpSession session = SessionUtils.getSession();
-            session.setAttribute("username", uname);
-            session.setAttribute("haslo", password);
-            /*
-            session.setAttribute("imie", imie);
-            session.setAttribute("nazwisko", nazwisko);
-            session.setAttribute("pesel", pesel);*/
-            return "/patientPage.xhtml";
+            if (uname.equals("admin") && password.equals("admin")) {
+                HttpSession session = SessionUtils.getSession();
+                session.setAttribute("username", uname);
+                session.setAttribute("haslo", password);
+
+                return "Admin/adminPage.xhtml";
+            } else {
+                return "/patientPage.xhtml";
+            }
         } else {
-            return "/loginWarning.xhtml";
+            return "/loginPageWarning.xhtml";
         }
+
     }
-    
 
     public String logout() {
         FacesContext facesContext = FacesContext.getCurrentInstance();
@@ -119,7 +118,6 @@ public class LogowanieBean implements Serializable{
         return "/index.xhtml";
     }
 
-    
     public PacjentBean getPacjentBean() {
         return pacjentBean;
     }

@@ -37,9 +37,9 @@
                         <tr><td>Opis</td><td><h:outputText value="#{przychodnia.opis}" class="form-control"/></td></tr>
                         <tr><td>Adres</td><td><h:outputText value="#{przychodnia.adres}" class="form-control"/></td></tr>
                         <tr><td>Kontakt</td><td><h:outputText value="#{przychodnia.kontakt}" class="form-control"/></td></tr>
-                        <div class="form-group" style="margin-right: 8px">
+                        <div>
                             <td>
-                                <h:commandLink class="someClass" value="Dodaj wizyte" action="#{przychodniaBean.dodajWizyte}" actionListener="#{przychodniaBean.przychodniaListener}" >
+                                <h:commandLink style="margin-right: 8px" class="someClass" value="Dodaj wizyte" action="#{przychodniaBean.dodajWizyte}" actionListener="#{przychodniaBean.przychodniaListener}" >
                                     <f:param name="przychodniaID" value="#{przychodnia.id}"/>
                                 </h:commandLink>
                             </td>

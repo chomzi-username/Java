@@ -5,11 +5,12 @@ import java.awt.event.ActionEvent;
 import java.util.List;
 import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
+import javax.faces.view.ViewScoped;
 import javax.persistence.EntityManager;
 import pl.goralczyk.config.DBManager;
 import pl.goralczyk.entity.Lekarz;
 
-
+@ViewScoped
 public class LekarzBean {
     private Lekarz lekarz = new Lekarz();
 
