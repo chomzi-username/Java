@@ -1,22 +1,28 @@
 package pl.goralczyk.controllers;
 
+import com.mysql.jdbc.Statement;
+import java.io.IOException;
+import java.io.PrintWriter;
 import java.sql.PreparedStatement;
-import java.awt.event.ActionEvent;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import static java.util.Date.from;
 import java.util.List;
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.SessionScoped;
-import javax.faces.bean.ViewScoped;
 import javax.faces.context.FacesContext;
 import javax.persistence.EntityManager;
-import javax.persistence.Query;
+import javax.servlet.ServletException;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
+import org.hibernate.sql.Select;
 import pl.goralczyk.config.DBManager;
 import pl.goralczyk.config.DataConnect;
+import pl.goralczyk.config.SessionUtils;
 import pl.goralczyk.entity.Pacjent;
-import pl.goralczyk.entity.Przychodnia;
 
 @SessionScoped
 public class PacjentBean {
@@ -30,8 +36,21 @@ public class PacjentBean {
     private int przychodniaID;
     private long ID;
     private int pacjentId;
-    DataConnect dc;
-    
+
+    public void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        //PrintWriter out = response.getWriter();
+        String im = request.getParameter("imie");
+        String naz = request.getParameter("nazwisko");
+        String pes = request.getParameter("pesel");
+        String user = request.getParameter("username");
+        String has = request.getParameter("haslo");
+    }
+
+    public void doPost(HttpServletRequest request,
+            HttpServletResponse response) throws ServletException, IOException {
+
+    }
+
     public int getPacjentId() {
         return pacjentId;
     }
@@ -104,47 +123,50 @@ public class PacjentBean {
         this.pacjent = pacjent;
     }
 
-    public List<PacjentBean> getUserList() {
-        List<PacjentBean> list = new ArrayList<PacjentBean>();
-        PreparedStatement ps = null;
-        Connection con = null;
-        ResultSet rs = null;
+    public String logout() {
+        FacesContext context = FacesContext.getCurrentInstance();
+        HttpServletRequest request = (HttpServletRequest) context.getExternalContext().getRequest();
         try {
-            Class.forName("com.mysql.jdbc.Driver");
-            con = DataConnect.getConnection();
-            String sql = "select * from pacjent";
-            ps = con.prepareStatement(sql);
-            rs = ps.executeQuery();
-            while (rs.next()) {
-                PacjentBean usr = new PacjentBean();
-                usr.setID(rs.getInt("ID"));
-                usr.setImie(rs.getString("imie"));
-                usr.setNazwisko(rs.getString("nazwisko"));
-                usr.setPesel(rs.getString("pesel"));
-                usr.setPrzychodniaID(rs.getInt("przychodnia"));
-                usr.setUsername(rs.getString("username"));
-                usr.setPassword(rs.getString("haslo"));
-                list.add(usr);
-            }
-        } catch (Exception e) {
-            e.printStackTrace();
-        } finally {
-            try {
-                DataConnect.close(con);
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
+            request.logout();
+        } catch (ServletException e) {
+            context.addMessage(null, new FacesMessage("Logout failed."));
         }
-        return list;
+        return "/index.xhtml";
+    }
+
+    public String validateUsernamePassword() throws SQLException {
+        boolean valid = PacjentBean.validate(username, password);
+        HttpSession session = SessionUtils.getSession();
+        if (valid) {
+            if (username.equals("admin") && password.equals("admin")) {
+
+                session.setAttribute("username", username);
+                session.setAttribute("haslo", password);
+
+                return "/adminPage.xhtml";
+            } else {
+                EntityManager em = DBManager.getManager().createEntityManager();
+                pacjent = (Pacjent) em.createQuery("SELECT p FROM Pacjent p WHERE p.username = :username").setParameter("username", username).getSingleResult(); 
+    
+                session.setAttribute("username", username);
+                session.setAttribute("haslo", password);
+                em.close();
+                return "/patientPage.xhtml";
+
+            }
+        } else {
+            return "/loginPageWarning.xhtml";
+        }
     }
 
     public static boolean validate(String user, String password) {
+
         Connection con = null;
         PreparedStatement ps = null;
 
         try {
             con = DataConnect.getConnection();
-            ps = (PreparedStatement) con.prepareStatement("Select username, haslo from pacjent where username = ? and haslo = ?");
+            ps = (PreparedStatement) con.prepareStatement("Select * from pacjent where username = ? and haslo = ?");
             ps.setString(1, user);
             ps.setString(2, password);
             ResultSet rs = ps.executeQuery();
@@ -160,6 +182,22 @@ public class PacjentBean {
         return false;
     }
 
+    public void showData() throws SQLException {
+        Connection con = null;
+        PreparedStatement ps = null;
+        try {
+            con = DataConnect.getConnection();
+            ps = con.prepareStatement("Select imie,nazwisko,pesel from pacjent where username=?");
+            ps.setString(1, imie);
+            ps.setString(2, nazwisko);
+            ps.setString(3, pesel);
+            ResultSet rs = ps.executeQuery();
+
+        } finally {
+            DataConnect.close(con);
+        }
+    }
+
     public String dodaj() {
         EntityManager em = DBManager.getManager().createEntityManager();
         em.getTransaction().begin();
@@ -167,13 +205,8 @@ public class PacjentBean {
         em.persist(pacjent);
         em.getTransaction().commit();
         em.close();
-        //this.dodajInformacje("Dodano pacjenta!");
         this.pacjent = new Pacjent();
         return null;
-    }
-
-    public void dodajInformacje(String s) {
-        FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, s, ""));
     }
 
     public void pacjentListener() {
@@ -186,7 +219,7 @@ public class PacjentBean {
         EntityManager em = DBManager.getManager().createEntityManager();
 
         this.pacjent = em.find(Pacjent.class,
-                 pacjent.getId());
+                pacjent.getId());
         em.close();
         return "/editPatient.xhtml";
     }
@@ -196,7 +229,7 @@ public class PacjentBean {
         em.getTransaction().begin();
 
         this.pacjent = em.find(Pacjent.class,
-                 pacjent.getId());
+                pacjent.getId());
         em.remove(this.pacjent);
         this.pacjent = new Pacjent();
         em.getTransaction().commit();
@@ -209,13 +242,6 @@ public class PacjentBean {
         List list = em.createNamedQuery("Pacjent.findAll").getResultList();
         em.close();
         return list;
-    }
-
-    public List<Pacjent> getListOfPerson() {
-        EntityManager em = DBManager.getManager().createEntityManager();//w.lekarz1.przychodnia.id=:id"
-        List<Pacjent> lista = em.createNamedQuery("SELECT p FROM Pacjent p WHERE p.id = :id").getResultList();
-        em.close();
-        return lista;
     }
 
     public String edytuj() {

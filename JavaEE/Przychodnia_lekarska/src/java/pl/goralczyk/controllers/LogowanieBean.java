@@ -1,15 +1,18 @@
 package pl.goralczyk.controllers;
 
 import java.io.Serializable;
+import java.util.List;
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
-import javax.faces.bean.ViewScoped;
-import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
+import javax.persistence.EntityManager;
+import javax.servlet.ServletException;
 import javax.servlet.http.*;
+import pl.goralczyk.config.DBManager;
 import pl.goralczyk.config.DataConnect;
 import pl.goralczyk.config.SessionUtils;
+import pl.goralczyk.entity.Logowanie;
 import pl.goralczyk.entity.Pacjent;
 import pl.goralczyk.entity.Przychodnia;
 
@@ -93,6 +96,40 @@ public class LogowanieBean implements Serializable {
         this.uname = uname;
     }
 
+    public List<Logowanie> getListOfPerson() {
+        EntityManager em = DBManager.getManager().createEntityManager();
+        List list = em.createNamedQuery("Logowanie.findAll").getResultList();
+        em.close();
+        return list;
+    }
+
+    public String login() {
+        FacesContext context = FacesContext.getCurrentInstance();
+        HttpServletRequest request = (HttpServletRequest) context.getExternalContext().getRequest();
+        try {
+            
+                request.login(this.uname, this.password);
+           
+                return "/patientPage.xhtml";
+            
+            
+        } catch (ServletException e) {
+            context.addMessage(null, new FacesMessage("Login failed."));
+            return "/loginPageWarning.xhtml";
+        }
+    }
+
+    public String logout() {
+        FacesContext context = FacesContext.getCurrentInstance();
+        HttpServletRequest request = (HttpServletRequest) context.getExternalContext().getRequest();
+        try {
+            request.logout();
+        } catch (ServletException e) {
+            context.addMessage(null, new FacesMessage("Logout failed."));
+        }
+        return "/index.xhtml";
+    }
+
     public String validateUsernamePassword() {
         boolean valid = PacjentBean.validate(uname, password);
         if (valid) {
@@ -101,7 +138,7 @@ public class LogowanieBean implements Serializable {
                 session.setAttribute("username", uname);
                 session.setAttribute("haslo", password);
 
-                return "Admin/adminPage.xhtml";
+                return "/adminPage.xhtml";
             } else {
                 return "/patientPage.xhtml";
             }
@@ -110,13 +147,13 @@ public class LogowanieBean implements Serializable {
         }
 
     }
-
+/*
     public String logout() {
         FacesContext facesContext = FacesContext.getCurrentInstance();
         ExternalContext externalContext = facesContext.getExternalContext();
         externalContext.invalidateSession();
         return "/index.xhtml";
-    }
+    }*/
 
     public PacjentBean getPacjentBean() {
         return pacjentBean;

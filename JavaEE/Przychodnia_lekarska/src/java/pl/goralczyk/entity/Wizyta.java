@@ -18,6 +18,7 @@ import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.Table;
 import javax.persistence.UniqueConstraint;
+import javax.xml.bind.annotation.XmlRootElement;
 
 /**
  *
@@ -28,6 +29,7 @@ import javax.persistence.UniqueConstraint;
     @UniqueConstraint(columnNames = {"pokoj", "data"})
     , @UniqueConstraint(columnNames = {"pacjent", "data"})
     , @UniqueConstraint(columnNames = {"lekarz", "data"})})
+@XmlRootElement
 @NamedQueries({
     @NamedQuery(name = "Wizyta.findAll", query = "SELECT w FROM Wizyta w")
     , @NamedQuery(name = "Wizyta.findByLekarz", query = "SELECT w FROM Wizyta w WHERE w.wizytaPK.lekarz = :lekarz")
@@ -135,5 +137,4 @@ public class Wizyta implements Serializable {
         WizytaPK klucz = new WizytaPK(lekarzID, pacjentID, data);
         return klucz;
     }
-    
 }

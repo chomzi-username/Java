@@ -1,4 +1,8 @@
-
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
 package pl.goralczyk.entity;
 
 import java.io.Serializable;
@@ -18,14 +22,13 @@ import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.UniqueConstraint;
+import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.XmlTransient;
 
-/**
- *
- * @author Artur
- */
 @Entity
 @Table(name = "pacjent", uniqueConstraints = {
     @UniqueConstraint(columnNames = {"pesel"})})
+@XmlRootElement
 @NamedQueries({
     @NamedQuery(name = "Pacjent.findAll", query = "SELECT p FROM Pacjent p")
     , @NamedQuery(name = "Pacjent.findById", query = "SELECT p FROM Pacjent p WHERE p.id = :id")
@@ -57,6 +60,8 @@ public class Pacjent implements Serializable {
     @Basic(optional = false)
     @Column(name = "haslo", nullable = false, length = 30)
     private String haslo;
+    @OneToMany(mappedBy = "pacjent", fetch = FetchType.EAGER)
+    private Set<Logowanie> logowanieSet;
     @JoinColumn(name = "przychodnia", referencedColumnName = "id")
     @ManyToOne(fetch = FetchType.EAGER)
     private Przychodnia przychodnia;
@@ -127,6 +132,15 @@ public class Pacjent implements Serializable {
         this.haslo = haslo;
     }
 
+    @XmlTransient
+    public Set<Logowanie> getLogowanieSet() {
+        return logowanieSet;
+    }
+
+    public void setLogowanieSet(Set<Logowanie> logowanieSet) {
+        this.logowanieSet = logowanieSet;
+    }
+
     public Przychodnia getPrzychodnia() {
         return przychodnia;
     }
@@ -135,6 +149,7 @@ public class Pacjent implements Serializable {
         this.przychodnia = przychodnia;
     }
 
+    @XmlTransient
     public Set<Wizyta> getWizytaSet() {
         return wizytaSet;
     }

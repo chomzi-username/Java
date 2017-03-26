@@ -6,6 +6,7 @@
     <class>pl.goralczyk.entity.Wizyta</class>
     <class>pl.goralczyk.entity.Lekarz</class>
     <class>pl.goralczyk.entity.Pacjent</class>
+    <class>pl.goralczyk.entity.Logowanie</class>
     <exclude-unlisted-classes>false</exclude-unlisted-classes>
     <properties>
       <property name="javax.persistence.jdbc.url" value="jdbc:mysql://localhost:3306/przychodnialekarskadb?zeroDateTimeBehavior=convertToNull"/>

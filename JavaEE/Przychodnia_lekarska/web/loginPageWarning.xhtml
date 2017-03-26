@@ -15,24 +15,27 @@
     </h:head>
 
     <h:body class="container">
-        <h:form id="formularzLogowania" class="col-md-6 center-block" style="margin-top: 100px;margin-left: 300px ;margin-right: 100px; align-content: center" >
+        <form method="post" id="formularzLogowania" class="col-md-6 center-block" style="margin-top: 100px;margin-left: 300px ;margin-right: 100px; align-content: center" >
             <h1>Logowanie pacjenta</h1>
             <div class="alert alert-warning">
                 <strong>Uuups!</strong> Użyte dane do logowania są nieprawidłowe. Proszę spróbować jeszcze raz.
             </div>
             <div class="form-group">
                 <h:outputText value="Wprowadź nazwę użytkownika: " style="font-weight: bold"/>
-                <h:inputText id="inputName" value="#{logowanieBean.uname}" class="form-control" />
+                <h:inputText id="inputName" value="#{pacjentBean.username}" class="form-control" />
             </div>
             <div class="form-group">
                 <h:outputText value="Wprowadź hasło:" style="font-weight: bold"/>
-                <h:inputSecret id="inputPassword" value="#{logowanieBean.password}" class="form-control"/>
+                <h:inputSecret id="inputPassword" value="#{pacjentBean.password}" class="form-control"/>
             </div><!--required="true"-->
-            <h:commandButton value="Zaloguj się" action="#{logowanieBean.validateUsernamePassword}" 
+            <h:commandButton value="Zaloguj się" action="#{pacjentBean.validateUsernamePassword}" 
                              class="btn btn-success" />
             <div style="text-align: right;">
                 <h:outputLink value="registerPage.xhtml" class="btn-lg btn-block">Rejestracja</h:outputLink>
             </div>
-        </h:form>
+            <div style="text-align: right;">
+                <h:outputLink value="index.xhtml" class="btn-lg btn-block">Wstecz</h:outputLink>
+            </div>
+        </form>
     </h:body>
 </html>

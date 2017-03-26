@@ -32,42 +32,41 @@
         </nav>
         <h:form id="formularzPacjenta" class="col-md-6 center-block" style="margin-top: 50px;margin-left: 500px ;margin-right: 100px; align-content: center" >
             <h1>Profil pacjenta</h1>
-            <ui:repeat value="#{pacjentBean.lista}" var="pacjent">
+            
                 <div class="form-group">
                     <h:column>
                         <h:outputText value="Twoja nazwa użytkownika:" style="font-weight: bold"/>
-                        <h:outputText value="#{pacjent.username}"/>
+                        <h:outputText value="#{pacjentBean.username}"/>
                     </h:column>
                 </div>
                 <div class="form-group">
                     <h:column>
                         <h:outputText value="Twoje hasło:" style="font-weight: bold"/>
-                        <h:outputText value="#{pacjent.haslo}"/>
+                        <h:outputText value="#{pacjentBean.password}"/>
                     </h:column>
                 </div>
-
                 <div class="form-group">
                     <h:column>
                         <h:outputText value="Twoje imie:" style="font-weight: bold"/>
-                        <h:outputText value="#{pacjent.imie}"/>
+                        <h:outputText value="#{pacjentBean.pacjent.imie}"/>
                     </h:column>
                 </div>
                 <div class="form-group">
                     <h:column>
                         <h:outputText value="Twoje nazwisko:" style="font-weight: bold"/>
-                        <h:outputText value="#{pacjent.nazwisko}"/>
+                        <h:outputText value="#{pacjentBean.pacjent.nazwisko}"/>
                     </h:column>
                 </div>
                 <div class="form-group">
                     <h:column>
                         <h:outputText value="Twój pesel:" style="font-weight: bold"/>
-                        <h:outputText value="#{pacjent.pesel}"/>
+                        <h:outputText value="#{pacjentBean.pacjent.pesel}"/>
                     </h:column>
                 </div>
                 <div class="form-group">
                     <h:column>
                         <h:outputText value="Twoja przychodnia:" style="font-weight: bold"/>
-                        <h:outputText value="#{pacjent.przychodnia.nazwa}"/>
+                        <h:outputText value="#{pacjentBean.pacjent.przychodnia.nazwa}"/>
                     </h:column>
                 </div>
                 <h:column>
@@ -75,7 +74,7 @@
                         <f:param name="pacjentID" value="#{pacjent.id}"/>
                     </h:commandButton>
                 </h:column>
-            </ui:repeat>
+            
         </h:form> 
     </h:body>
 </html>

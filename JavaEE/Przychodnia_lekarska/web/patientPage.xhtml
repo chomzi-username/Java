@@ -2,7 +2,8 @@
 <!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
       xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:h="http://xmlns.jcp.org/jsf/html">
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
     <h:head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
         <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css"/>
@@ -27,11 +28,11 @@
             </div>
         </nav>
         <h:form id="patientPage" class="col-md-6 center-block" style="margin-top: 50px;margin-left: 400px ;margin-right: 200px; align-content: center" >
-            <h1>Witaj <h:outputText value="#{logowanieBean.uname}"/></h1>
+            <h1>Witaj <h:outputText value="#{pacjentBean.pacjent.imie} #{pacjentBean.pacjent.nazwisko}"/></h1>
             Zapraszamy do korzystania z opcji zawartych po lewej stronie ekranu.
             
              <div style="text-align: right;">
-                 <h:commandButton value="Wyloguj" action="#{logowanieBean.logout}" class="btn btn-success"/>
+                 <h:commandButton value="Wyloguj" action="#{pacjentBean.logout}" class="btn btn-success"/>
             </div>
         </h:form>
     </h:body>

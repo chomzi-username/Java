@@ -11,19 +11,19 @@
         <title>Panel logowania</title>
     </h:head>
 
-    <h:body class="container">
+    <body class="container">
 
-        <h:form id="formularzLogowania" class="col-md-6 center-block" style="margin-top: 100px;margin-left: 300px ;margin-right: 100px; align-content: center" >
+        <h:form rendered="true" id="formularzLogowania" class="col-md-6 center-block" style="margin-top: 100px;margin-left: 300px ;margin-right: 100px; align-content: center" >
             <h1>Logowanie pacjenta</h1>
             <div class="form-group">
                 <h:outputText value="Wprowadź nazwę użytkownika: " style="font-weight: bold"/>
-                <h:inputText id="inputName" value="#{logowanieBean.uname}" class="form-control" />
+                <h:inputText id="inputName" value="#{pacjentBean.username}" class="form-control" />
             </div>
             <div class="form-group">
                 <h:outputText value="Wprowadź hasło:" style="font-weight: bold"/>
-                <h:inputSecret id="inputPassword" value="#{logowanieBean.password}" class="form-control"/>
+                <h:inputSecret id="inputPassword" value="#{pacjentBean.password}" class="form-control"/>
             </div>
-            <h:commandButton value="Zaloguj się" action="#{logowanieBean.validateUsernamePassword}" class="btn btn-success" />
+            <h:commandButton value="Zaloguj się" action="#{pacjentBean.validateUsernamePassword}" class="btn btn-success" />
 
             <div style="text-align: right;">
                 <h:outputLink value="registerPage.xhtml" class="btn-lg btn-block">Rejestracja</h:outputLink>
@@ -32,5 +32,5 @@
                 <h:outputLink value="index.xhtml" class="btn-lg btn-block">Wstecz</h:outputLink>
             </div>
         </h:form>
-    </h:body>
+    </body>
 </html>

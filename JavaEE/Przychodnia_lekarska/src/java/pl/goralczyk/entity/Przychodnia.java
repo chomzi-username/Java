@@ -19,6 +19,8 @@ import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
@@ -26,6 +28,7 @@ import javax.persistence.Table;
  */
 @Entity
 @Table(name = "przychodnia")
+@XmlRootElement
 @NamedQueries({
     @NamedQuery(name = "Przychodnia.findAll", query = "SELECT p FROM Przychodnia p")
     , @NamedQuery(name = "Przychodnia.findById", query = "SELECT p FROM Przychodnia p WHERE p.id = :id")
@@ -109,6 +112,7 @@ public class Przychodnia implements Serializable {
         this.kontakt = kontakt;
     }
 
+    @XmlTransient
     public Set<Pacjent> getPacjentSet() {
         return pacjentSet;
     }
@@ -117,6 +121,7 @@ public class Przychodnia implements Serializable {
         this.pacjentSet = pacjentSet;
     }
 
+    @XmlTransient
     public Set<Lekarz> getLekarzSet() {
         return lekarzSet;
     }
