@@ -27,13 +27,14 @@
                 </ul>
             </div>
         </nav>
-        <h1>Edytuj wizyte</h1>
-        <h:form id="editVisit" class="col-md-6 center-block" style="margin-top: 50px;margin-left: 400px ;margin-right: 200px; align-content: center" >>
+        
+        <h:form id="editVisit" class="col-md-6 center-block" style="margin-top: 50px;margin-left: 400px ;margin-right: 200px; align-content: center" >
+            <h1>Edytuj wizyte</h1>
             <table>
                 <tr>
                     <td>Wybierz lekarza:</td>
                     <td>
-                        <h:selectOneMenu id="lekarz" value="#{wizytaBean.wizyta.wizytaPK.lekarz}" required="true">
+                        <h:selectOneMenu id="lekarz" value="#{wizytaBean.wizyta.wizytaPK.lekarz}" class="form-control" style="margin-bottom: 10px">
                             <f:selectItems value="#{przychodniaBean.przychodnia.lekarzSet}" var="lekarz" itemValue="#{lekarz.id}" itemLabel="#{lekarz.imie} #{lekarz.nazwisko}"/>
                         </h:selectOneMenu>
                     </td>
@@ -41,7 +42,7 @@
                 <tr>
                     <td>Wybierz pacjenta:</td>
                     <td>
-                        <h:selectOneMenu id="pacjent" value="#{wizytaBean.wizyta.wizytaPK.pacjent}" required="true">
+                        <h:selectOneMenu id="pacjent" value="#{wizytaBean.wizyta.wizytaPK.pacjent}" class="form-control">
                             <f:selectItems value="#{przychodniaBean.przychodnia.pacjentSet}" var="pacjent" itemValue="#{pacjent.id}" itemLabel="#{pacjent.imie} #{pacjent.nazwisko}"/>
                         </h:selectOneMenu>
                     </td>
@@ -49,7 +50,7 @@
                 <tr>
                     <td>Wpisz datę i czas(w formacie RRRR-MM-DD GG:MM:SS):</td>
                     <td>
-                        <h:inputText value="#{wizytaBean.wizyta.wizytaPK.data}" required="true">
+                        <h:inputText value="#{wizytaBean.wizyta.wizytaPK.data}" class="form-control" style="margin-bottom: 10px">
                             <f:convertDateTime pattern="yyyy-MM-dd HH:mm:ss" timeZone="GMT+1" type="both"/>
                         </h:inputText>
                     </td>
@@ -57,11 +58,11 @@
                 <tr>
                     <td>Wpisz nr pokoju:</td>
                     <td>
-                        <h:inputText value="#{wizytaBean.wizyta.pokoj}" required="true"/>
+                        <h:inputText value="#{wizytaBean.wizyta.pokoj}" class="form-control" style="margin-bottom: 10px"/>
                     </td>
                 </tr>
                 <tr>
-                    <td></td><td><h:commandButton action="#{wizytaBean.edytuj}" value="Edytuj"/></td>
+                    <td></td><td><h:commandButton action="#{wizytaBean.edytuj}" value="Edytuj" class="btn btn-warning"/></td>
                 </tr>
             </table>
         </h:form>

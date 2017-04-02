@@ -10,6 +10,23 @@
         <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap-theme.min.css"/>
         <script src="//code.jquery.com/jquery-1.11.2.min.js"></script>
         <title>Strona pacjenta</title>
+        <style>
+            table {
+                font-family: arial, sans-serif;
+                border-collapse: collapse;
+                width: 100%;
+            }
+
+            td, th {
+                border: 1px solid #dddddd;
+                text-align: left;
+                padding: 8px;
+            }
+
+            tr:nth-child(even) {
+                background-color: #dddddd;
+            }
+        </style>
     </h:head>
 
     <h:body>
@@ -23,55 +40,32 @@
                     <li><h:outputLink value="listOfPatient.xhtml" class="btn-lg btn-block">Lista pacjentów</h:outputLink></li>
                     <li><h:outputLink value="listOfClinics.xhtml" class="btn-lg btn-block">Lista przychodni</h:outputLink></li>
                     <li><h:outputLink value="listOfDoctors.xhtml" class="btn-lg btn-block">Lista lekarzy</h:outputLink></li>
+                    <li><h:outputLink value="addDoctor.xhtml" class="btn-lg btn-block">Dodaj lekarza</h:outputLink></li>
+                    <li><h:outputLink value="addClinic.xhtml" class="btn-lg btn-block">Dodaj przychodnie</h:outputLink></li>
                 </ul>
             </div>
         </nav>
         <h:form id="adminPage" class="col-md-6 center-block" style="margin-top: 50px;margin-left: 400px ;margin-right: 200px; align-content: center" >
             <h1>Lista pacjentów</h1>
-            <ui:repeat value="#{pacjentBean.lista}" var="pacjent">
-                <div class="form-group">
-                    <h:column>
-                        <h:outputText value="Twoja nazwa użytkownika:" style="font-weight: bold"/>
-                        <h:outputText value="#{pacjent.username}"/>
-                    </h:column>
-                </div>
-                <div class="form-group">
-                    <h:column>
-                        <h:outputText value="Twoje hasło:" style="font-weight: bold"/>
-                        <h:outputText value="#{pacjent.haslo}"/>
-                    </h:column>
-                </div>
-
-                <div class="form-group">
-                    <h:column>
-                        <h:outputText value="Twoje imie:" style="font-weight: bold"/>
-                        <h:outputText value="#{pacjent.imie}"/>
-                    </h:column>
-                </div>
-                <div class="form-group">
-                    <h:column>
-                        <h:outputText value="Twoje nazwisko:" style="font-weight: bold"/>
-                        <h:outputText value="#{pacjent.nazwisko}"/>
-                    </h:column>
-                </div>
-                <div class="form-group">
-                    <h:column>
-                        <h:outputText value="Twój pesel:" style="font-weight: bold"/>
-                        <h:outputText value="#{pacjent.pesel}"/>
-                    </h:column>
-                </div>
-                <div class="form-group">
-                    <h:column>
-                        <h:outputText value="Twoja przychodnia:" style="font-weight: bold"/>
-                        <h:outputText value="#{pacjent.przychodnia.nazwa}"/>
-                    </h:column>
-                </div>
-                <h:column>
-                    <h:commandButton action="#{pacjentBean.zaladujDoEdycji}" value="Edytuj" class="btn btn-warning" actionListener="#{pacjentBean.pacjentListener}">
-                        <f:param name="pacjentID" value="#{pacjent.id}"/>
-                    </h:commandButton>
-                </h:column>
-            </ui:repeat>
+            <table>
+                <tr><td>Naz. użytkownika</td><td>Hasło</td><td>Imie</td><td>Nazwisko</td><td>PESEL</td><td>Przychodnia</td></tr>
+                <ui:repeat value="#{pacjentBean.lista}" var="pacjent">
+                    <tr>
+                        <td>#{pacjent.username}</td>
+                        <td>#{pacjent.haslo}</td>
+                        <td>#{pacjent.imie}</td>
+                        <td>#{pacjent.nazwisko}</td>
+                        <td>#{pacjent.pesel}</td>
+                        <td>#{pacjent.przychodnia.nazwa}</td>
+                    </tr>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                </ui:repeat>
+            </table>
         </h:form>
     </h:body>
 </html>

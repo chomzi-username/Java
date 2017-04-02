@@ -28,26 +28,33 @@
                 </ul>
             </div>
         </nav>
-        <h:form id="editClinicPage" class="col-md-6 center-block" style="margin-top: 50px;margin-left: 400px ;margin-right: 200px; align-content: center" >
-            <h1>Edycja przychodni</h1>
-            <div class="form-group">
-                <h:outputText value="Nazwa przychodni:" style="font-weight: bold"/>
-                <h:inputText value="#{przychodniaBean.przychodnia.nazwa}" class="form-control"/>
+        <h:form id="addDoctorPage" class="col-md-6 center-block" style="margin-top: 50px;margin-left: 400px ;margin-right: 200px; align-content: center" >
+            <h1>Dodawanie lekarza</h1>
+            <div class="alert alert-success">
+                <strong>Huuuuraaaa!</strong> Udało się dodać nowego lekarza! By zobaczyć zmiany proszę zalogować się jeszcze raz.
             </div>
             <div class="form-group">
-                <h:outputText value="Adres przychodni:" style="font-weight: bold"/>
-                <h:inputText value="#{przychodniaBean.przychodnia.adres}" class="form-control"/>
+                <h:outputText value="Imie lekarza:" style="font-weight: bold"/>
+                <h:inputText value="#{lekarzBean.lekarz.imie}" class="form-control" required="true" requiredMessage="Wprowadź imię lekarza!"/>
             </div>
             <div class="form-group">
-                <h:outputText value="Kontakt do przychodni:" style="font-weight: bold"/>
-                <h:inputText value="#{przychodniaBean.przychodnia.kontakt}" class="form-control"/>
+                <h:outputText value="Nazwisko lekarza:" style="font-weight: bold"/>
+                <h:inputText value="#{lekarzBean.lekarz.nazwisko}" class="form-control" required="true" requiredMessage="Wprowadź nazwisko lekarza!"/>
             </div>
             <div class="form-group">
-                <h:outputText value="Opis przychodni:" style="font-weight: bold"/>
-                <h:inputTextarea value="#{przychodniaBean.przychodnia.opis}" class="form-control"/>
+                <h:outputText value="Specjalizacja:" style="font-weight: bold"/>
+                <h:inputText value="#{lekarzBean.lekarz.specjalizacja}" class="form-control" required="true" requiredMessage="Wprowadź specjalizację!"/>
+            </div>
+            <div class="form-group">
+                <h:outputText value="Wybierz przychodnie:" style="font-weight: bold"/>
+                <h:selectOneMenu id="przychodnia" value="#{lekarzBean.lekarz.przychodnia}" class="form-control" required="true" requiredMessage="Wprowadź przychodnię!">
+                    <f:converter converterId="przychodniaConverter"/>
+                    <f:selectItems value="#{przychodniaBean.lista}" var="przychodnia" itemValue="#{przychodnia}" itemLabel="#{przychodnia.nazwa}"/>
+                </h:selectOneMenu>
             </div>
 
-            <h:commandButton action="#{przychodniaBean.edytuj}" value="Edytuj" class="btn btn-warning" />          
+            <h:commandButton action="#{lekarzBean.dodaj}" value="Dodaj" class="btn btn-success" />
+
         </h:form>
     </h:body>
 </html>

@@ -8,11 +8,13 @@ import javax.faces.context.FacesContext;
 import javax.persistence.EntityManager;
 import javax.persistence.RollbackException;
 import pl.goralczyk.config.DBManager;
+import pl.goralczyk.entity.Pacjent;
 import pl.goralczyk.entity.Wizyta;
 import pl.goralczyk.entity.WizytaPK;
 
 
 public class WizytaBean {
+    private Pacjent pacjent = new Pacjent();
     private Wizyta wizyta;
     private Wizyta staraWizyta;
     private int przychodniaID;
@@ -45,6 +47,7 @@ public class WizytaBean {
 
     public String dodaj() {
         EntityManager em = DBManager.getManager().createEntityManager();
+        pacjent = (Pacjent) em.createQuery("SELECT w FROM Wizyta w WHERE w.wizytaPK.pacjent = :pacjent").setParameter("id", pacjent.getId()).getSingleResult(); 
         em.getTransaction().begin();
         em.persist(wizyta);
         try {

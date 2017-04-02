@@ -11,6 +11,23 @@
         <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap-theme.min.css"/>
         <script src="//code.jquery.com/jquery-1.11.2.min.js"></script>
         <title>Lista lekarzy</title>
+        <style>
+            table {
+                font-family: arial, sans-serif;
+                border-collapse: collapse;
+                width: 100%;
+            }
+
+            td, th {
+                border: 1px solid #dddddd;
+                text-align: left;
+                padding: 8px;
+            }
+
+            tr:nth-child(even) {
+                background-color: #dddddd;
+            }
+        </style>
     </h:head>
     <h:body>
         <nav class="navbar navbar-default">
@@ -27,27 +44,23 @@
                 </ul>
             </div>
         </nav>      
-        <h:form id="formularzLekarzy" class="col-md-6 center-block" style="margin-top: 50px;margin-left: 500px ;margin-right: 100px; align-content: center">
+        <h:form id="adminPage" class="col-md-6 center-block" style="margin-top: 50px;margin-left: 400px ;margin-right: 200px; align-content: center" >
             <h1>Lista lekarzy</h1>
-            <h:dataTable value="#{lekarzBean.lista}" var="lekarz">
-                <h:column>
-                    <f:facet name="header">Imie</f:facet>
-                    <h:outputText value="#{lekarz.imie}"/>
-                </h:column>
-                <h:column>
-                    <f:facet name="header">Nazwisko</f:facet>
-                    <h:outputText value="#{lekarz.nazwisko}"/>
-                </h:column>
-                <h:column>
-                    <f:facet name="header">Specjalizacja</f:facet>
-                    <h:outputText value="#{lekarz.specjalizacja}"/>
-                </h:column>
-                <h:column>
-                    <f:facet name="header">Przychodnia</f:facet>
-                    <h:outputText value="#{lekarz.przychodnia==null?'Brak':lekarz.przychodnia.nazwa}"/>
-                </h:column>
-                
-            </h:dataTable>
+            <table>
+                <tr><td>Imie</td><td>Nazwisko</td><td>Specjalizacja</td><td>Przychodnia</td></tr>
+                <ui:repeat value="#{lekarzBean.lista}" var="lekarz">
+                    <tr>
+                        <td>#{lekarz.imie}</td>
+                        <td>#{lekarz.nazwisko}</td>
+                        <td>#{lekarz.specjalizacja}</td>
+                        <td>#{lekarz.przychodnia==null?'Brak':lekarz.przychodnia.nazwa}</td>
+                    </tr>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                </ui:repeat>
+            </table>
         </h:form>
     </h:body>
 </html>

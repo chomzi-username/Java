@@ -23,26 +23,35 @@
                     <li><h:outputLink value="listOfPatient.xhtml" class="btn-lg btn-block">Lista pacjentów</h:outputLink></li>
                     <li><h:outputLink value="listOfClinics.xhtml" class="btn-lg btn-block">Lista przychodni</h:outputLink></li>
                     <li><h:outputLink value="listOfDoctors.xhtml" class="btn-lg btn-block">Lista lekarzy</h:outputLink></li>
+                    <li><h:outputLink value="addDoctor.xhtml" class="btn-lg btn-block">Dodaj lekarza</h:outputLink></li>
+                    <li><h:outputLink value="addClinic.xhtml" class="btn-lg btn-block">Dodaj przychodnie</h:outputLink></li>
                 </ul>
             </div>
         </nav>
         <h:form id="adminPage" class="col-md-6 center-block" style="margin-top: 50px;margin-left: 400px ;margin-right: 200px; align-content: center" >
             <h1>Edycja lekarza</h1>
-            <table>
-                <tr><td>Imie</td><td><h:inputText id="imie" value="#{lekarzBean.lekarz.imie}" required="true" /></td></tr>
-                <tr><td>Nazwisko</td><td><h:inputText id="nazwisko" value="#{lekarzBean.lekarz.nazwisko}" required="true" /></td></tr>
-                <tr><td>Specjalizacja</td><td><h:inputText id="specjalizacja" value="#{lekarzBean.lekarz.specjalizacja}" required="true" /></td></tr>
-                <tr>
-                    <td>Przychodnia</td>
-                    <td>
-                        <h:selectOneMenu id="przychodnia" value="#{lekarzBean.lekarz.przychodnia}" required="true">
-                            <f:converter converterId="przychodniaConverter"/>
-                            <f:selectItems value="#{przychodniaBean.lista}" var="przychodnia" itemValue="#{przychodnia}" itemLabel="#{przychodnia.nazwa}"/>
-                        </h:selectOneMenu>
-                    </td>
-                </tr>
-                <tr><td></td><td><h:commandButton action="#{lekarzBean.edytuj}" value="Edytuj"/></td></tr>
-            </table>
-        </h:form>
+            <div class="form-group">
+                <h:outputText value="Imie lekarza:" style="font-weight: bold"/>
+                <h:inputText value="#{lekarzBean.lekarz.imie}" class="form-control"/>
+            </div>
+            <div class="form-group">
+                <h:outputText value="Nazwisko lekarza:" style="font-weight: bold"/>
+                <h:inputText value="#{lekarzBean.lekarz.nazwisko}" class="form-control"/>
+            </div>
+            <div class="form-group">
+                <h:outputText value="Specjalizacja:" style="font-weight: bold"/>
+                <h:inputText value="#{lekarzBean.lekarz.specjalizacja}" class="form-control"/>
+            </div>
+            <div class="form-group">
+                <h:outputText value="Wybierz przychodnie:" style="font-weight: bold"/>
+                <h:selectOneMenu id="przychodnia" value="#{lekarzBean.lekarz.przychodnia}" class="form-control">
+                    <f:converter converterId="przychodniaConverter"/>
+                    <f:selectItems value="#{przychodniaBean.lista}" var="przychodnia" itemValue="#{przychodnia}" itemLabel="#{przychodnia.nazwa}"/>
+                </h:selectOneMenu>
+            </div>
+
+            <h:commandButton action="#{lekarzBean.edytuj}" value="Edytuj" class="btn btn-warning" />
+
+        </h:form> 
     </h:body>
 </html>

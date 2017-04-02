@@ -12,6 +12,7 @@ import static java.util.Date.from;
 import java.util.List;
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.SessionScoped;
+import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
 import javax.persistence.EntityManager;
 import javax.servlet.ServletException;
@@ -36,20 +37,6 @@ public class PacjentBean {
     private int przychodniaID;
     private long ID;
     private int pacjentId;
-
-    public void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        //PrintWriter out = response.getWriter();
-        String im = request.getParameter("imie");
-        String naz = request.getParameter("nazwisko");
-        String pes = request.getParameter("pesel");
-        String user = request.getParameter("username");
-        String has = request.getParameter("haslo");
-    }
-
-    public void doPost(HttpServletRequest request,
-            HttpServletResponse response) throws ServletException, IOException {
-
-    }
 
     public int getPacjentId() {
         return pacjentId;
@@ -124,14 +111,11 @@ public class PacjentBean {
     }
 
     public String logout() {
-        FacesContext context = FacesContext.getCurrentInstance();
-        HttpServletRequest request = (HttpServletRequest) context.getExternalContext().getRequest();
-        try {
-            request.logout();
-        } catch (ServletException e) {
-            context.addMessage(null, new FacesMessage("Logout failed."));
-        }
-        return "/index.xhtml";
+        ExternalContext ectx = FacesContext.getCurrentInstance().getExternalContext();
+        HttpServletResponse response = (HttpServletResponse) ectx.getResponse();
+        HttpSession session = (HttpSession) ectx.getSession(false);
+        session.invalidate();
+        return "loginPage.xhtml";
     }
 
     public String validateUsernamePassword() throws SQLException {
@@ -139,15 +123,18 @@ public class PacjentBean {
         HttpSession session = SessionUtils.getSession();
         if (valid) {
             if (username.equals("admin") && password.equals("admin")) {
+                EntityManager em = DBManager.getManager().createEntityManager();
+                pacjent = (Pacjent) em.createQuery("SELECT p FROM Pacjent p WHERE p.username = :username").setParameter("username", username).getSingleResult();
 
                 session.setAttribute("username", username);
                 session.setAttribute("haslo", password);
-
+                em.close();
                 return "/adminPage.xhtml";
             } else {
+                FacesContext fc = FacesContext.getCurrentInstance();
                 EntityManager em = DBManager.getManager().createEntityManager();
-                pacjent = (Pacjent) em.createQuery("SELECT p FROM Pacjent p WHERE p.username = :username").setParameter("username", username).getSingleResult(); 
-    
+                pacjent = (Pacjent) em.createQuery("SELECT p FROM Pacjent p WHERE p.username = :username").setParameter("username", username).getSingleResult();
+
                 session.setAttribute("username", username);
                 session.setAttribute("haslo", password);
                 em.close();
@@ -182,22 +169,6 @@ public class PacjentBean {
         return false;
     }
 
-    public void showData() throws SQLException {
-        Connection con = null;
-        PreparedStatement ps = null;
-        try {
-            con = DataConnect.getConnection();
-            ps = con.prepareStatement("Select imie,nazwisko,pesel from pacjent where username=?");
-            ps.setString(1, imie);
-            ps.setString(2, nazwisko);
-            ps.setString(3, pesel);
-            ResultSet rs = ps.executeQuery();
-
-        } finally {
-            DataConnect.close(con);
-        }
-    }
-
     public String dodaj() {
         EntityManager em = DBManager.getManager().createEntityManager();
         em.getTransaction().begin();
@@ -217,7 +188,6 @@ public class PacjentBean {
 
     public String zaladujDoEdycji() {
         EntityManager em = DBManager.getManager().createEntityManager();
-
         this.pacjent = em.find(Pacjent.class,
                 pacjent.getId());
         em.close();
@@ -251,7 +221,7 @@ public class PacjentBean {
         em.getTransaction().commit();
         em.close();
         this.pacjent = new Pacjent();
-        return "/editPatientSuccess.xhtml";//nie podmienia danych tylko dodaje nowego użytkownika(mozliwe ze dlatgo ze nie wyswietla wszystkich danych)
+        return "/editPatientSuccess.xhtml";
     }
 
 }

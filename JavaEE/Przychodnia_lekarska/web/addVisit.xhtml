@@ -27,7 +27,7 @@
                 </ul>
             </div>
         </nav>      
-        <h:form id="formularzLekarzy" class="col-md-6 center-block" style="margin-top: 50px;margin-left: 400px ;margin-right: 100px; align-content: center">
+        <h:form id="formularzWizit" class="col-md-6 center-block" style="margin-top: 50px;margin-left: 400px ;margin-right: 100px; align-content: center">
         <h1>Dodaj wizyte</h1>
             <table>
                 <tr>
@@ -39,25 +39,24 @@
                     </td>
                 </tr>
                 <tr>
-                    <td>Wybierz pacjenta:</td>
+                    <td>Imie i nazwisko pacjenta:</td>
                     <td>
-                        <h:selectOneMenu id="pacjent" value="#{wizytaBean.wizyta.wizytaPK.pacjent}"  class="form-control" style="margin-bottom: 10px">
-                            <f:selectItems value="#{przychodniaBean.przychodnia.pacjentSet}" var="pacjent" itemValue="#{pacjent.id}" itemLabel="#{pacjent.imie} #{pacjent.nazwisko}"/>
-                        </h:selectOneMenu>
+                        <h:inputText class="form-control" value="#{pacjentBean.pacjent.pesel}" id="visitPesel"/>
                     </td>
+                    
                 </tr>
                 <tr>
                     <td>Wpisz datę i czas(w formacie RRRR-MM-DD GG:MM:SS):</td>
                     <td>
-                        <h:inputText value="#{wizytaBean.wizyta.wizytaPK.data}" required="true" class="form-control" style="margin-bottom: 10px">
-                            <f:convertDateTime pattern="yyyy-MM-dd HH:mm:ss" timeZone="GMT+1" type="both"/>
+                        <h:inputText value="#{wizytaBean.wizyta.wizytaPK.data}" class="form-control" style="margin-bottom: 10px">
+                            <f:convertDateTime pattern="yyyy-MM-dd" timeZone="GMT+1" type="both"/>
                         </h:inputText>
                     </td>
                 </tr>
                 <tr>
                     <td>Wpisz nr pokoju:</td>
                     <td>
-                        <h:inputText value="#{wizytaBean.wizyta.pokoj}" required="true" class="form-control" style="margin-bottom: 10px"/>
+                        <h:inputText value="#{wizytaBean.wizyta.pokoj}" class="form-control" style="margin-bottom: 10px"/>
                     </td>
                 </tr>
                 <tr>

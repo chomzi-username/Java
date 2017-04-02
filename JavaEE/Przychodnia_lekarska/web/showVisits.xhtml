@@ -11,6 +11,23 @@
         <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap-theme.min.css"/>
         <script src="//code.jquery.com/jquery-1.11.2.min.js"></script>
         <title>Lista wizyt</title>
+        <style>
+            table {
+                font-family: arial, sans-serif;
+                border-collapse: collapse;
+                width: 100%;
+            }
+
+            td, th {
+                border: 1px solid #dddddd;
+                text-align: left;
+                padding: 8px;
+            }
+
+            tr:nth-child(even) {
+                background-color: #dddddd;
+            }
+        </style>
     </h:head>
     <h:body>
         <nav class="navbar navbar-default">
@@ -29,50 +46,29 @@
         </nav>
         <h:form id="formularzLekarzy" class="col-md-6 center-block" style="margin-top: 50px;margin-left: 400px ;margin-right: 100px; align-content: center">
             <h1>Lista wizyt</h1>
-            <h:dataTable value="#{wizytaBean.listaWizyt}" var="wizyta">
-                <div class="form-group">
-                    <h:column>
-                        <f:facet name="header">Edytuj</f:facet>
-                        <h:commandButton value="Edytuj" action="#{wizytaBean.zaladujDoEdycji}" actionListener="#{wizytaBean.wizytaListener}" class="btn btn-success">
+            <table>
+                <tr><td>Lekarz</td><td>Pacjent</td><td>Data</td><td>Nr pokoju</td></tr>
+                <ui:repeat value="#{wizytaBean.listaWizyt}" var="wizyta">
+                    <tr>
+                        <td>#{wizyta.lekarz1.imie} #{wizyta.lekarz1.nazwisko}</td>
+                        <td>#{wizyta.pacjent1.imie} #{wizyta.pacjent1.nazwisko}</td>
+                        <td>#{wizyta.wizytaPK.data}</td>
+                        <td>#{wizyta.pokoj}</td>
+                    </tr>
+                    <td></td>
+                    <td></td>
+                    <td>
+                        <h:commandLink value="Edytuj" action="#{wizytaBean.zaladujDoEdycji}" actionListener="#{wizytaBean.wizytaListener}">
                             <f:param name="wizytaPK" value="#{wizyta.wizytaPKAsString}"/>
-                        </h:commandButton>
-                    </h:column>
-                </div>
-                <br/>
-                <div class="form-group">
-                    <h:column>
-                        <f:facet name="header">Usuń</f:facet>
-                        <h:commandButton value="Usuń" action="#{wizytaBean.usun}" actionListener="#{wizytaBean.wizytaListener}" class="btn btn-success">
+                        </h:commandLink>
+                    </td>
+                    <td>
+                        <h:commandLink value="Usuń" action="#{wizytaBean.usun}" actionListener="#{wizytaBean.wizytaListener}">
                             <f:param name="wizytaPK" value="#{wizyta.wizytaPKAsString}"/>
-                        </h:commandButton>
-                    </h:column>
-                </div>
-                <br/>
-                <div class="form-group">
-                    <h:column>
-                        <f:facet name="header">Lekarz</f:facet>
-                        <h:outputText value="#{wizyta.lekarz1.imie} #{wizyta.lekarz1.nazwisko}"/>
-                    </h:column>
-                </div>
-                <div class="form-group">
-                    <h:column>
-                        <f:facet name="header">Pacjent</f:facet>
-                        <h:outputText value="#{wizyta.pacjent1.imie} #{wizyta.pacjent1.nazwisko}"/>
-                    </h:column>
-                </div>
-                <div class="form-group">
-                    <h:column>
-                        <f:facet name="header">Data</f:facet>
-                        <h:outputText value="#{wizyta.wizytaPK.data}"/>
-                    </h:column>
-                </div>
-                <div class="form-group">
-                    <h:column>
-                        <f:facet name="header">Nr pokoju</f:facet>
-                        <h:outputText value="#{wizyta.pokoj}"/>
-                    </h:column>
-                </div>
-            </h:dataTable>
+                        </h:commandLink>
+                    </td>
+                </ui:repeat>
+            </table>
         </h:form>
     </h:body>
 </html>

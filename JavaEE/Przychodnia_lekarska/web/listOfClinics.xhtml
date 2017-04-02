@@ -10,6 +10,23 @@
         <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap-theme.min.css"/>
         <script src="//code.jquery.com/jquery-1.11.2.min.js"></script>
         <title>Strona pacjenta</title>
+        <style>
+            table {
+                font-family: arial, sans-serif;
+                border-collapse: collapse;
+                width: 100%;
+            }
+
+            td, th {
+                border: 1px solid #dddddd;
+                text-align: left;
+                padding: 8px;
+            }
+
+            tr:nth-child(even) {
+                background-color: #dddddd;
+            }
+        </style>
     </h:head>
 
     <h:body>
@@ -23,6 +40,8 @@
                     <li><h:outputLink value="listOfPatient.xhtml" class="btn-lg btn-block">Lista pacjentów</h:outputLink></li>
                     <li><h:outputLink value="listOfClinics.xhtml" class="btn-lg btn-block">Lista przychodni</h:outputLink></li>
                     <li><h:outputLink value="listOfDoctors.xhtml" class="btn-lg btn-block">Lista lekarzy</h:outputLink></li>
+                    <li><h:outputLink value="addDoctor.xhtml" class="btn-lg btn-block">Dodaj lekarza</h:outputLink></li>
+                    <li><h:outputLink value="addClinic.xhtml" class="btn-lg btn-block">Dodaj przychodnie</h:outputLink></li>
                 </ul>
             </div>
         </nav>
@@ -37,6 +56,8 @@
                         <td>#{przychodnia.adres}</td>
                         <td>#{przychodnia.kontakt}</td>
                     </tr>
+                    <td></td>
+                    <td></td>
                     <td>
                         <h:commandLink value="Edytuj" action="#{przychodniaBean.zaladujDoEdycji}" actionListener="#{przychodniaBean.przychodniaListener}">
                             <f:param name="przychodniaID" value="#{przychodnia.id}"/>
@@ -44,17 +65,6 @@
                     </td>
                     <td>
                         <h:commandLink value="Usuń" action="#{przychodniaBean.usun}" actionListener="#{przychodniaBean.przychodniaListener}">
-                            <f:param name="przychodniaID" value="#{przychodnia.id}"/>
-                        </h:commandLink>
-                    </td>
-                    
-                    <td>
-                        <h:commandLink value="Dodaj wizyte" action="#{przychodniaBean.dodajWizyte}" actionListener="#{przychodniaBean.przychodniaListener}">
-                            <f:param name="przychodniaID" value="#{przychodnia.id}"/>
-                        </h:commandLink>
-                    </td>
-                    <td>
-                        <h:commandLink value="Pokaż wizyty" action="#{przychodniaBean.pokazWizyty}" actionListener="#{przychodniaBean.przychodniaListener}">
                             <f:param name="przychodniaID" value="#{przychodnia.id}"/>
                         </h:commandLink>
                     </td>

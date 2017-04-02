@@ -23,6 +23,7 @@ public class LekarzBean {
     }
 
     public String dodaj() {
+        try{
         EntityManager em = DBManager.getManager().createEntityManager();
         em.getTransaction().begin();
         lekarz.setId(null);
@@ -30,7 +31,10 @@ public class LekarzBean {
         em.getTransaction().commit();
         em.close();
         this.lekarz = new Lekarz();
-        return null;
+        }catch(Exception e){
+            return "addDoctorWarning.xhtml";
+        }
+        return "addDoctorSuccess.xhtml";
     }
 
     public void dodajInformacje(String s) {
@@ -38,7 +42,7 @@ public class LekarzBean {
     }
 
     public void lekarzListener() {
-        String ids = FacesContext.getCurrentInstance().getExternalContext().getRequestParameterMap().get("lekarzID").toString();
+        String ids = FacesContext.getCurrentInstance().getExternalContext().getRequestParameterMap().get("lekarzID");
         int id = Integer.parseInt(ids);
         this.lekarz.setId(id);
     }

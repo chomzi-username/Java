@@ -1,8 +1,4 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+
 package pl.goralczyk.entity;
 
 import java.io.Serializable;
@@ -20,10 +16,6 @@ import javax.persistence.Table;
 import javax.persistence.UniqueConstraint;
 import javax.xml.bind.annotation.XmlRootElement;
 
-/**
- *
- * @author Artur
- */
 @Entity
 @Table(name = "wizyta", uniqueConstraints = {
     @UniqueConstraint(columnNames = {"pokoj", "data"})
@@ -47,7 +39,7 @@ public class Wizyta implements Serializable {
     @JoinColumn(name = "lekarz", referencedColumnName = "ID", nullable = false, insertable = false, updatable = false)
     @ManyToOne(optional = false, fetch = FetchType.EAGER)
     private Lekarz lekarz1;
-    @JoinColumn(name = "pacjent", referencedColumnName = "ID", nullable = false, insertable = false, updatable = false)
+    @JoinColumn(name = "pacjent", referencedColumnName = "pesel", nullable = false, insertable = false, updatable = false)
     @ManyToOne(optional = false, fetch = FetchType.EAGER)
     private Pacjent pacjent1;
 
@@ -108,7 +100,6 @@ public class Wizyta implements Serializable {
 
     @Override
     public boolean equals(Object object) {
-        // TODO: Warning - this method won't work in the case the id fields are not set
         if (!(object instanceof Wizyta)) {
             return false;
         }
