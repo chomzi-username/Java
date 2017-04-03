@@ -35,19 +35,19 @@
             </div>
             <div class="form-group">
                 <h:outputText value="Imie lekarza:" style="font-weight: bold"/>
-                <h:inputText value="#{lekarzBean.lekarz.imie}" class="form-control" required="true" requiredMessage="Wprowadź imię lekarza!"/>
+                <h:inputText value="#{lekarzBean.lekarz.imie}" class="form-control"/>
             </div>
             <div class="form-group">
                 <h:outputText value="Nazwisko lekarza:" style="font-weight: bold"/>
-                <h:inputText value="#{lekarzBean.lekarz.nazwisko}" class="form-control" required="true" requiredMessage="Wprowadź nazwisko lekarza!"/>
+                <h:inputText value="#{lekarzBean.lekarz.nazwisko}" class="form-control"/>
             </div>
             <div class="form-group">
                 <h:outputText value="Specjalizacja:" style="font-weight: bold"/>
-                <h:inputText value="#{lekarzBean.lekarz.specjalizacja}" class="form-control" required="true" requiredMessage="Wprowadź specjalizację!"/>
+                <h:inputText value="#{lekarzBean.lekarz.specjalizacja}" class="form-control"/>
             </div>
             <div class="form-group">
                 <h:outputText value="Wybierz przychodnie:" style="font-weight: bold"/>
-                <h:selectOneMenu id="przychodnia" value="#{lekarzBean.lekarz.przychodnia}" class="form-control" required="true" requiredMessage="Wprowadź przychodnię!">
+                <h:selectOneMenu id="przychodnia" value="#{lekarzBean.lekarz.przychodnia}" class="form-control">
                     <f:converter converterId="przychodniaConverter"/>
                     <f:selectItems value="#{przychodniaBean.lista}" var="przychodnia" itemValue="#{przychodnia}" itemLabel="#{przychodnia.nazwa}"/>
                 </h:selectOneMenu>

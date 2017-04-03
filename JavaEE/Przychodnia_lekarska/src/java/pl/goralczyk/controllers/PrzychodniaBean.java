@@ -79,7 +79,7 @@ public class PrzychodniaBean {
         em.getTransaction().commit();
         em.close();
         this.przychodnia = new Przychodnia();
-        return "/showClinics.xhtml";
+        return "/listOfClinics.xhtml";
     }
 
     public String pokazWizyty() {

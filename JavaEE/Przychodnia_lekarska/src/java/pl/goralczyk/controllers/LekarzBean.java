@@ -79,6 +79,6 @@ public class LekarzBean {
         em.getTransaction().commit();
         em.close();
         this.lekarz = new Lekarz();
-        return "/showDoctors.xhtml";
+        return "/listOfDoctors.xhtml";
     }
 }

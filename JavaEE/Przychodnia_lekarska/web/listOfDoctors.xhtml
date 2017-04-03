@@ -60,12 +60,12 @@
                     <td></td>
                     <td>
                         <h:commandLink value="Edytuj" action="#{lekarzBean.zaladujDoEdycji}" actionListener="#{lekarzBean.lekarzListener}">
-                            <f:param name="przychodniaID" value="#{lekarz.id}"/>
+                            <f:param name="lekarzID" value="#{lekarz.id}"/>
                         </h:commandLink>
                     </td>
                     <td>
                         <h:commandLink value="Usuń" action="#{lekarzBean.usun}" actionListener="#{lekarzBean.lekarzListener}">
-                            <f:param name="przychodniaID" value="#{lekarz.id}"/>
+                            <f:param name="lekarzID" value="#{lekarz.id}"/>
                         </h:commandLink>
                     </td>
                 </ui:repeat>
