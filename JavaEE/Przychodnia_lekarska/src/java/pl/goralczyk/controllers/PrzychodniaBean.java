@@ -1,7 +1,6 @@
 
 package pl.goralczyk.controllers;
 
-import java.awt.event.ActionEvent;
 import java.util.List;
 import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
@@ -27,6 +26,7 @@ public class PrzychodniaBean {
     }
 
     public String dodaj() {
+        try{
         EntityManager em = DBManager.getManager().createEntityManager();
         em.getTransaction().begin();
         przychodnia.setId(null);
@@ -34,7 +34,10 @@ public class PrzychodniaBean {
         em.getTransaction().commit();
         em.close();
         this.przychodnia = new Przychodnia();
-        return null;
+        }catch(Exception e){
+            return "addClinicWarning.xhtml";
+        }
+        return "addClinicSuccess.xhtml";
     }
 
     public List<Przychodnia> getLista() {

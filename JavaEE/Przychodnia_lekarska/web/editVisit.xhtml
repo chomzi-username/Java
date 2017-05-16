@@ -40,25 +40,11 @@
                     </td>
                 </tr>
                 <tr>
-                    <td>Wybierz pacjenta:</td>
-                    <td>
-                        <h:selectOneMenu id="pacjent" value="#{wizytaBean.wizyta.wizytaPK.pacjent}" class="form-control">
-                            <f:selectItems value="#{przychodniaBean.przychodnia.pacjentSet}" var="pacjent" itemValue="#{pacjent.id}" itemLabel="#{pacjent.imie} #{pacjent.nazwisko}"/>
-                        </h:selectOneMenu>
-                    </td>
-                </tr>
-                <tr>
-                    <td>Wpisz datę i czas(w formacie RRRR-MM-DD GG:MM:SS):</td>
+                    <td>Wpisz datę i czas(w formacie RRRR-MM-DD):</td>
                     <td>
                         <h:inputText value="#{wizytaBean.wizyta.wizytaPK.data}" class="form-control" style="margin-bottom: 10px">
-                            <f:convertDateTime pattern="yyyy-MM-dd HH:mm:ss" timeZone="GMT+1" type="both"/>
+                            <f:convertDateTime pattern="yyyy-MM-dd" timeZone="GMT+1" type="date"/>
                         </h:inputText>
-                    </td>
-                </tr>
-                <tr>
-                    <td>Wpisz nr pokoju:</td>
-                    <td>
-                        <h:inputText value="#{wizytaBean.wizyta.pokoj}" class="form-control" style="margin-bottom: 10px"/>
                     </td>
                 </tr>
                 <tr>

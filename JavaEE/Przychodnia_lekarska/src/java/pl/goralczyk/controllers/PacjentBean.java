@@ -106,7 +106,7 @@ public class PacjentBean {
         HttpServletResponse response = (HttpServletResponse) ectx.getResponse();
         HttpSession session = (HttpSession) ectx.getSession(false);
         session.invalidate();
-        return "loginPage.xhtml";
+        return "/loginPage.xhtml";
     }
 
     public String validateUsernamePassword() throws SQLException {

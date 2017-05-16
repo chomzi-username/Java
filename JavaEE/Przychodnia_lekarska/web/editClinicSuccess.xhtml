@@ -1,0 +1,56 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+    <h:head>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+        <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css"/>
+        <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap-theme.min.css"/>
+        <script src="//code.jquery.com/jquery-1.11.2.min.js"></script>
+        <title>Strona pacjenta</title>
+    </h:head>
+
+    <h:body>
+        <nav class="navbar navbar-default">
+            <div class="container-fluid">
+                <div class="navbar-header">
+                    <a class="navbar-brand" href="#">Przychodnia lekarska</a>
+                </div>
+                <ul class="nav navbar-nav">
+                    <li class="active"><h:outputLink value="adminPage.xhtml" class="btn-lg btn-block">Strona główna</h:outputLink></li>
+                    <li><h:outputLink value="listOfPatient.xhtml" class="btn-lg btn-block">Lista pacjentów</h:outputLink></li>
+                    <li><h:outputLink value="listOfClinics.xhtml" class="btn-lg btn-block">Lista przychodni</h:outputLink></li>
+                    <li><h:outputLink value="listOfDoctors.xhtml" class="btn-lg btn-block">Lista lekarzy</h:outputLink></li>
+                    <li><h:outputLink value="addDoctor.xhtml" class="btn-lg btn-block">Dodaj lekarza</h:outputLink></li>
+                    <li><h:outputLink value="addClinic.xhtml" class="btn-lg btn-block">Dodaj przychodnie</h:outputLink></li>
+                </ul>
+            </div>
+        </nav>
+        <h:form id="editClinicPage" class="col-md-6 center-block" style="margin-top: 50px;margin-left: 400px ;margin-right: 200px; align-content: center" >
+            <h1>Edycja przychodni</h1>
+            <div class="alert alert-success">
+                <strong>Huuuuraaaa!</strong> Udało się edytować przychodnię! By zobaczyć zmiany proszę zalogować się jeszcze raz.
+            </div>
+            <div class="form-group">
+                <h:outputText value="Nazwa przychodni:" style="font-weight: bold"/>
+                <h:inputText value="#{przychodniaBean.przychodnia.nazwa}" class="form-control"/>
+            </div>
+            <div class="form-group">
+                <h:outputText value="Adres przychodni:" style="font-weight: bold"/>
+                <h:inputText value="#{przychodniaBean.przychodnia.adres}" class="form-control"/>
+            </div>
+            <div class="form-group">
+                <h:outputText value="Kontakt do przychodni:" style="font-weight: bold"/>
+                <h:inputText value="#{przychodniaBean.przychodnia.kontakt}" class="form-control"/>
+            </div>
+            <div class="form-group">
+                <h:outputText value="Opis przychodni:" style="font-weight: bold"/>
+                <h:inputTextarea value="#{przychodniaBean.przychodnia.opis}" class="form-control"/>
+            </div>
+
+            <h:commandButton action="#{przychodniaBean.edytuj}" value="Edytuj" class="btn btn-warning" />          
+        </h:form>
+    </h:body>
+</html>

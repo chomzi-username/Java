@@ -32,8 +32,12 @@
         <managed-bean-class>pl.goralczyk.controllers.WizytaBean</managed-bean-class>
         <managed-bean-scope>session</managed-bean-scope>
         <managed-property>
-            <property-name>przychodniaID</property-name>
+            <property-name>przychodniaId</property-name>
             <value>#{przychodniaBean.przychodnia.id}</value>
+        </managed-property>
+        <managed-property>
+            <property-name>pacjentId</property-name>
+            <value>#{pacjentBean.pacjent.id}</value>
         </managed-property>
     </managed-bean>
     

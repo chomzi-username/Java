@@ -47,16 +47,12 @@
         <h:form id="formularzLekarzy" class="col-md-6 center-block" style="margin-top: 50px;margin-left: 400px ;margin-right: 100px; align-content: center">
             <h1>Lista wizyt</h1>
             <table>
-                <tr><td>Lekarz</td><td>Pacjent</td><td>Data</td><td>Nr pokoju</td></tr>
+                <tr><td>Lekarz</td><td>Data</td></tr>
                 <ui:repeat value="#{wizytaBean.listaWizyt}" var="wizyta">
                     <tr>
                         <td>#{wizyta.lekarz1.imie} #{wizyta.lekarz1.nazwisko}</td>
-                        <td>#{wizyta.pacjent1.imie} #{wizyta.pacjent1.nazwisko}</td>
                         <td>#{wizyta.wizytaPK.data}</td>
-                        <td>#{wizyta.pokoj}</td>
                     </tr>
-                    <td></td>
-                    <td></td>
                     <td>
                         <h:commandLink value="Edytuj" action="#{wizytaBean.zaladujDoEdycji}" actionListener="#{wizytaBean.wizytaListener}">
                             <f:param name="wizytaPK" value="#{wizyta.wizytaPKAsString}"/>

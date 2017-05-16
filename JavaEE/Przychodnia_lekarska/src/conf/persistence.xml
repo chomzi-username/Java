@@ -3,10 +3,10 @@
   <persistence-unit name="Przychodnia_lekarskaPU" transaction-type="RESOURCE_LOCAL">
     <provider>org.eclipse.persistence.jpa.PersistenceProvider</provider>
     <class>pl.goralczyk.entity.Przychodnia</class>
-    <class>pl.goralczyk.entity.Wizyta</class>
     <class>pl.goralczyk.entity.Lekarz</class>
     <class>pl.goralczyk.entity.Pacjent</class>
-    <class>pl.goralczyk.entity.Logowanie</class>
+    <class>pl.goralczyk.entity.Wizyta2</class>
+    <class>pl.goralczyk.entity.Wizyta</class>
     <exclude-unlisted-classes>false</exclude-unlisted-classes>
     <properties>
       <property name="javax.persistence.jdbc.url" value="jdbc:mysql://localhost:3306/przychodnialekarskadb?zeroDateTimeBehavior=convertToNull"/>

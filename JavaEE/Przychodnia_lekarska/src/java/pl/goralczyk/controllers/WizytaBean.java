@@ -1,23 +1,20 @@
-
 package pl.goralczyk.controllers;
 
-import java.awt.event.ActionEvent;
 import java.util.List;
-import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
 import javax.persistence.EntityManager;
 import javax.persistence.RollbackException;
 import pl.goralczyk.config.DBManager;
-import pl.goralczyk.entity.Pacjent;
-import pl.goralczyk.entity.Wizyta;
-import pl.goralczyk.entity.WizytaPK;
-
+import pl.goralczyk.entity.*;
 
 public class WizytaBean {
+
     private Pacjent pacjent = new Pacjent();
+    private PacjentBean pacjentBean = new PacjentBean();
     private Wizyta wizyta;
     private Wizyta staraWizyta;
-    private int przychodniaID;
+    private int przychodniaId;
+    private int pacjentId;
 
     public WizytaBean() {
         this.inicjujWizyte();
@@ -37,46 +34,48 @@ public class WizytaBean {
         this.wizyta = wizyta;
     }
 
-    public int getPrzychodniaID() {
-        return przychodniaID;
+    public int getPrzychodniaId() {
+        return przychodniaId;
     }
 
-    public void setPrzychodniaID(int przychodniaID) {
-        this.przychodniaID = przychodniaID;
+    public void setPrzychodniaId(int przychodniaId) {
+        this.przychodniaId = przychodniaId;
+    }
+
+    public int getPacjentId() {
+        return pacjentId;
+    }
+
+    public void setPacjentId(int pacjentId) {
+        this.pacjentId = pacjentId;
     }
 
     public String dodaj() {
         EntityManager em = DBManager.getManager().createEntityManager();
-        pacjent = (Pacjent) em.createQuery("SELECT w FROM Wizyta w WHERE w.wizytaPK.pacjent = :pacjent").setParameter("id", pacjent.getId()).getSingleResult(); 
         em.getTransaction().begin();
         em.persist(wizyta);
         try {
             em.getTransaction().commit();
         } catch (RollbackException re) {
-            this.dodajInformacje("Nie udało się dodać wizyty - upewnij się, że taka wizyta nie istnieje!");
-            return null;
+            return "/addVisitWarning.xhtml";
         } finally {
             em.close();
         }
-        this.dodajInformacje("Dodano wizyte!");
         this.inicjujWizyte();
-        return null;
+        return "/addVisitSuccess.xhtml";
 
-    }
-
-    private void dodajInformacje(String s) {
-        FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, s, ""));
     }
 
     public List<Wizyta> getListaWizyt() {
         EntityManager em = DBManager.getManager().createEntityManager();
-        List<Wizyta> lista = em.createQuery("from Wizyta w WHERE w.lekarz1.przychodnia.id=:id").setParameter("id", this.getPrzychodniaID()).getResultList();
+        List<Wizyta> lista;
+        lista = em.createQuery("from Wizyta w WHERE w.lekarz1.przychodnia.id=:id").setParameter("id", this.getPrzychodniaId()).getResultList();
         em.close();
         return lista;
     }
 
     public void wizytaListener() {
-        String kluczTekst = FacesContext.getCurrentInstance().getExternalContext().getRequestParameterMap().get("wizytaPK").toString();
+        String kluczTekst = FacesContext.getCurrentInstance().getExternalContext().getRequestParameterMap().get("wizytaPK");
         WizytaPK klucz = Wizyta.convertStringAsWizytaPK(kluczTekst);
         this.wizyta = new Wizyta();
         this.wizyta.setWizytaPK(klucz);
@@ -86,7 +85,6 @@ public class WizytaBean {
         EntityManager em = DBManager.getManager().createEntityManager();
         this.wizyta = em.find(Wizyta.class, wizyta.getWizytaPK());
         this.staraWizyta = new Wizyta(wizyta.getWizytaPK().getLekarz(), wizyta.getWizytaPK().getPacjent(), wizyta.getWizytaPK().getData());
-        this.staraWizyta.setPokoj(this.wizyta.getPokoj());
         em.close();
         return "/editVisit.xhtml";
     }
@@ -99,29 +97,26 @@ public class WizytaBean {
         this.inicjujWizyte();
         em.getTransaction().commit();
         em.close();
-        this.dodajInformacje("Usunięto wizyte!");
-        return null;
+        return "/showVisits.xhtml";
     }
 
     public String edytuj() {
         EntityManager em = DBManager.getManager().createEntityManager();
         em.getTransaction().begin();
-        if(this.wizyta.equals(this.staraWizyta))
+        if (this.wizyta.equals(this.staraWizyta)) {
             em.merge(this.wizyta);
-        else{
+        } else {
             em.remove(em.find(Wizyta.class, this.staraWizyta.getWizytaPK()));
             em.persist(this.wizyta);
         }
-        try{
+        try {
             em.getTransaction().commit();
-        }catch(RollbackException re){
-            this.dodajInformacje("Nie udało się zmienić danych wizyty - upewnij się, że taka wizyta nie istnieje!");
-            return null;
-        }finally{
+        } catch (RollbackException re) {
+            return "/editVisitWarning.xhtml";
+        } finally {
             em.close();
         }
-        this.dodajInformacje("Zmieniono dane wizyty!");
         this.inicjujWizyte();
-        return "/showVisits.xhtml";
+        return "/editVisitSuccess.xhtml";
     }
 }

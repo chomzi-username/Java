@@ -26,9 +26,13 @@
                     <li><h:outputLink value="showDoctors.xhtml" class="btn-lg btn-block">Pokaż lekarzy</h:outputLink></li>
                 </ul>
             </div>
-        </nav>      
-        <h:form id="formularzWizit" class="col-md-6 center-block" style="margin-top: 50px;margin-left: 400px ;margin-right: 100px; align-content: center">
-        <h1>Dodaj wizyte</h1>
+        </nav>
+        
+        <h:form id="editVisit" class="col-md-6 center-block" style="margin-top: 50px;margin-left: 400px ;margin-right: 200px; align-content: center" >
+            <h1>Edytuj wizyte</h1>
+            <div class="alert alert-warning">
+                <strong>Uuups!</strong> Edytowanie wizyty nie powiodło się. Proszę spróbować jeszcze raz.
+            </div>
             <table>
                 <tr>
                     <td>Wybierz lekarza:</td>
@@ -39,16 +43,15 @@
                     </td>
                 </tr>
                 <tr>
-                    <td>Wpisz datę (w formacie RRRR-MM-DD):</td>
+                    <td>Wpisz datę i czas(w formacie RRRR-MM-DD):</td>
                     <td>
                         <h:inputText value="#{wizytaBean.wizyta.wizytaPK.data}" class="form-control" style="margin-bottom: 10px">
                             <f:convertDateTime pattern="yyyy-MM-dd" timeZone="GMT+1" type="date"/>
                         </h:inputText>
                     </td>
                 </tr>
-                
                 <tr>
-                    <td></td><td><h:commandButton action="#{wizytaBean.dodaj}" value="Dodaj" class="btn btn-success"/></td>
+                    <td></td><td><h:commandButton action="#{wizytaBean.edytuj}" value="Edytuj" class="btn btn-warning"/></td>
                 </tr>
             </table>
         </h:form>

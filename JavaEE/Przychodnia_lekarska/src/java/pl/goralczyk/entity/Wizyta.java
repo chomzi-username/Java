@@ -1,10 +1,12 @@
-
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
 package pl.goralczyk.entity;
 
 import java.io.Serializable;
 import java.util.Date;
-import javax.persistence.Basic;
-import javax.persistence.Column;
 import javax.persistence.EmbeddedId;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -16,43 +18,33 @@ import javax.persistence.Table;
 import javax.persistence.UniqueConstraint;
 import javax.xml.bind.annotation.XmlRootElement;
 
+/**
+ *
+ * @author Artur
+ */
 @Entity
 @Table(name = "wizyta", uniqueConstraints = {
-    @UniqueConstraint(columnNames = {"pokoj", "data"})
-    , @UniqueConstraint(columnNames = {"pacjent", "data"})
-    , @UniqueConstraint(columnNames = {"lekarz", "data"})})
+    @UniqueConstraint(columnNames = {"lekarz", "data"})})
 @XmlRootElement
 @NamedQueries({
     @NamedQuery(name = "Wizyta.findAll", query = "SELECT w FROM Wizyta w")
     , @NamedQuery(name = "Wizyta.findByLekarz", query = "SELECT w FROM Wizyta w WHERE w.wizytaPK.lekarz = :lekarz")
     , @NamedQuery(name = "Wizyta.findByPacjent", query = "SELECT w FROM Wizyta w WHERE w.wizytaPK.pacjent = :pacjent")
-    , @NamedQuery(name = "Wizyta.findByData", query = "SELECT w FROM Wizyta w WHERE w.wizytaPK.data = :data")
-    , @NamedQuery(name = "Wizyta.findByPokoj", query = "SELECT w FROM Wizyta w WHERE w.pokoj = :pokoj")})
+    , @NamedQuery(name = "Wizyta.findByData", query = "SELECT w FROM Wizyta w WHERE w.wizytaPK.data = :data")})
 public class Wizyta implements Serializable {
 
     private static final long serialVersionUID = 1L;
     @EmbeddedId
     protected WizytaPK wizytaPK;
-    @Basic(optional = false)
-    @Column(name = "pokoj", nullable = false, length = 5)
-    private String pokoj;
     @JoinColumn(name = "lekarz", referencedColumnName = "ID", nullable = false, insertable = false, updatable = false)
     @ManyToOne(optional = false, fetch = FetchType.EAGER)
     private Lekarz lekarz1;
-    @JoinColumn(name = "pacjent", referencedColumnName = "pesel", nullable = false, insertable = false, updatable = false)
-    @ManyToOne(optional = false, fetch = FetchType.EAGER)
-    private Pacjent pacjent1;
 
     public Wizyta() {
     }
 
     public Wizyta(WizytaPK wizytaPK) {
         this.wizytaPK = wizytaPK;
-    }
-
-    public Wizyta(WizytaPK wizytaPK, String pokoj) {
-        this.wizytaPK = wizytaPK;
-        this.pokoj = pokoj;
     }
 
     public Wizyta(int lekarz, int pacjent, Date data) {
@@ -67,28 +59,12 @@ public class Wizyta implements Serializable {
         this.wizytaPK = wizytaPK;
     }
 
-    public String getPokoj() {
-        return pokoj;
-    }
-
-    public void setPokoj(String pokoj) {
-        this.pokoj = pokoj;
-    }
-
     public Lekarz getLekarz1() {
         return lekarz1;
     }
 
     public void setLekarz1(Lekarz lekarz1) {
         this.lekarz1 = lekarz1;
-    }
-
-    public Pacjent getPacjent1() {
-        return pacjent1;
-    }
-
-    public void setPacjent1(Pacjent pacjent1) {
-        this.pacjent1 = pacjent1;
     }
 
     @Override
@@ -100,6 +76,7 @@ public class Wizyta implements Serializable {
 
     @Override
     public boolean equals(Object object) {
+        // TODO: Warning - this method won't work in the case the id fields are not set
         if (!(object instanceof Wizyta)) {
             return false;
         }
@@ -114,13 +91,13 @@ public class Wizyta implements Serializable {
     public String toString() {
         return "pl.goralczyk.entity.Wizyta[ wizytaPK=" + wizytaPK + " ]";
     }
-    
-    public String getWizytaPKAsString(){
+
+    public String getWizytaPKAsString() {
         WizytaPK klucz = this.getWizytaPK();
-        return klucz.getLekarz()+";"+klucz.getPacjent()+";"+klucz.getData().getTime();
+        return klucz.getLekarz() + ";" + klucz.getPacjent() + ";" + klucz.getData().getTime();
     }
-    
-    public static WizytaPK convertStringAsWizytaPK(String s){
+
+    public static WizytaPK convertStringAsWizytaPK(String s) {
         String[] czesciKlucza = s.split(";");
         int lekarzID = Integer.parseInt(czesciKlucza[0]);
         int pacjentID = Integer.parseInt(czesciKlucza[1]);

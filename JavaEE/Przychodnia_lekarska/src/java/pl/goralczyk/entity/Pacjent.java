@@ -6,9 +6,7 @@
 package pl.goralczyk.entity;
 
 import java.io.Serializable;
-import java.util.Set;
 import javax.persistence.Basic;
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -19,12 +17,14 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
-import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.UniqueConstraint;
 import javax.xml.bind.annotation.XmlRootElement;
-import javax.xml.bind.annotation.XmlTransient;
 
+/**
+ *
+ * @author Artur
+ */
 @Entity
 @Table(name = "pacjent", uniqueConstraints = {
     @UniqueConstraint(columnNames = {"pesel"})})
@@ -60,13 +60,9 @@ public class Pacjent implements Serializable {
     @Basic(optional = false)
     @Column(name = "haslo", nullable = false, length = 30)
     private String haslo;
-    @OneToMany(mappedBy = "pacjent", fetch = FetchType.EAGER)
-    private Set<Logowanie> logowanieSet;
     @JoinColumn(name = "przychodnia", referencedColumnName = "id")
     @ManyToOne(fetch = FetchType.EAGER)
     private Przychodnia przychodnia;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "pacjent1", fetch = FetchType.EAGER)
-    private Set<Wizyta> wizytaSet;
 
     public Pacjent() {
     }
@@ -132,30 +128,12 @@ public class Pacjent implements Serializable {
         this.haslo = haslo;
     }
 
-    @XmlTransient
-    public Set<Logowanie> getLogowanieSet() {
-        return logowanieSet;
-    }
-
-    public void setLogowanieSet(Set<Logowanie> logowanieSet) {
-        this.logowanieSet = logowanieSet;
-    }
-
     public Przychodnia getPrzychodnia() {
         return przychodnia;
     }
 
     public void setPrzychodnia(Przychodnia przychodnia) {
         this.przychodnia = przychodnia;
-    }
-
-    @XmlTransient
-    public Set<Wizyta> getWizytaSet() {
-        return wizytaSet;
-    }
-
-    public void setWizytaSet(Set<Wizyta> wizytaSet) {
-        this.wizytaSet = wizytaSet;
     }
 
     @Override
